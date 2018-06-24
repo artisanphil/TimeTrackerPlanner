@@ -6,13 +6,13 @@ I have a number of projects I work on and I want to keep track of how much time 
 So far I've been doing this in Excel.
 I just had 4 rows and entered the information like this:
 
-Date:
+Date:\
 Start Time|Project|Duration in Minutes|Detail
 
 For example:
 
-24.06.2018
-16:00|microsoft certification|30|exam 70-486
+24.06.2018\
+16:00|microsoft certification|30|exam 70-486\
 16:30|learnclick|15|bug fix
 
 At the end of a week I also write down in my diary, what I plan to do the following week.
