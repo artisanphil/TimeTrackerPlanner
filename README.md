@@ -24,3 +24,9 @@ The finished product will be running in the browser. The main goal of this proje
 
 Later on I also plan to create a mobile app that will just be used for adding tasks when I'm not on my computer and don't have an
 internet connection. This will be done using React and the data will be synced via Azure.
+
+Wireframes:
+
+![alt Dashboard](wireframe-dashboard.png)
+
+![alt Add Task](wireframe-addtask.png)
