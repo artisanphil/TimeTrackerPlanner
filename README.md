@@ -30,3 +30,36 @@ Wireframes:
 ![alt Dashboard](wireframe-dashboard.png)
 
 ![alt Add Task](wireframe-addtask.png)
+
+Database:
+
+We'll be using a MySQL database.
+
+Table "tasks_doing":\
+- workid\
+- taskid\
+- starttime\
+- duration
+
+Table "tasks_planned"\
+- planid\
+- taskid\
+- planneddate\
+- estimation
+
+Table "task_names"\
+- taskid\
+- taskname\
+- categoryid
+
+Table "categories"\
+- catid\
+- catname\
+- projectid
+
+Table "projects"\
+- projectid\
+- projectname
+
+
+Table "
