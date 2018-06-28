@@ -60,6 +60,3 @@ Table "categories"\
 Table "projects"\
 - projectid\
 - projectname
-
-
-Table "
