@@ -4,61 +4,21 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using TimeTrackerPlanerWeb.Models;
 
 namespace TimeTrackerPlanerWeb.Migrations
 {
     [DbContext(typeof(TasksContext))]
-    partial class TasksContextModelSnapshot : ModelSnapshot
+    [Migration("20180702101104_CategoryTables2")]
+    partial class CategoryTables2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
-
-            modelBuilder.Entity("TimeTrackerPlanerWeb.Models.Categories", b =>
-                {
-                    b.Property<int>("catid")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("catname");
-
-                    b.Property<int>("projectid");
-
-                    b.HasKey("catid");
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("TimeTrackerPlanerWeb.Models.Projects", b =>
-                {
-                    b.Property<int>("projectid")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("projectname");
-
-                    b.HasKey("projectid");
-
-                    b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("TimeTrackerPlanerWeb.Models.TaskNames", b =>
-                {
-                    b.Property<int>("taskid")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("categoryid");
-
-                    b.Property<string>("taskname");
-
-                    b.HasKey("taskid");
-
-                    b.ToTable("TaskNames");
-                });
 
             modelBuilder.Entity("TimeTrackerPlanerWeb.Models.TasksDoing", b =>
                 {
