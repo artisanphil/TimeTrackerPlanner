@@ -15,4 +15,7 @@
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Pages\Test.cshtml" />
+  </ItemGroup>
 </Project>

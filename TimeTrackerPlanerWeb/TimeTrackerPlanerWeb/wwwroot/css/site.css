@@ -26,6 +26,19 @@ body {
     margin: 15px;
 }
 
+.addTaskGrid {
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px;
+    grid-template-rows: 40px;
+    grid-gap: 10px;
+    color: #444;
+}
+
+.box {
+    padding: 20px;
+    font-size: 14px;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
@@ -33,3 +46,4 @@ body {
         display: none;
     }
 }
+

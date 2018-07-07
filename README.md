@@ -35,28 +35,28 @@ Database:
 
 We'll be using a MySQL database.
 
-Table "tasks_doing":\
-- workid\
-- taskid\
-- starttime\
+Table "TasksDoing":
+- workid
+- taskid
+- starttime
 - duration
 
-Table "tasks_planned"\
-- planid\
-- taskid\
-- planneddate\
+Table "TasksPlanned"
+- planid
+- taskid
+- planneddate
 - estimation
 
-Table "task_names"\
-- taskid\
-- taskname\
+Table "TaskNames"
+- taskid
+- taskname
 - categoryid
 
-Table "categories"\
-- catid\
-- catname\
-- projectid
+Table "categories"
+- catid
+- catname
+- projecti
 
-Table "projects"\
-- projectid\
+Table "projects"
+- projectid
 - projectname

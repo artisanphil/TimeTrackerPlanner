@@ -1,0 +1,22 @@
+﻿@page
+@model AddTaskModel
+@{
+}
+<h1>Add Task</h1>
+<div>@ViewBag.Message</div>
+<form method="post">
+    <div class="addTaskGrid">
+        <div class="box a1">Project</div>
+        <div class="box a2">Category</div>
+        <div class="box a3">Task</div>
+        <div class="box a4">Time estimation</div>
+        <div class="box a5">Week</div>
+        <div class="box a6"></div>
+        <div class="box b1"><input asp-for="Projects.projectname" size="10" /></div>
+        <div class="box b2">B</div>
+        <div class="box b3">C</div>
+        <div class="box b4">D</div>
+        <div class="box b5">E</div>
+        <div class="box b6"><input type="submit" value="Add" /></div>
+    </div>
+</form>

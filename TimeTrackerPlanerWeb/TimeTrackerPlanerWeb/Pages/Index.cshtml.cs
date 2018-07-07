@@ -22,6 +22,7 @@ namespace TimeTrackerPlanerWeb.Pages
 
 		public async Task OnGetAsync()
         {
+            Console.WriteLine("Starting...");
             tasks = await _db.TasksDoing.ToListAsync();
 
         }
