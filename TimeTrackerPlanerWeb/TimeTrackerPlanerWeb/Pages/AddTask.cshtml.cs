@@ -10,6 +10,13 @@ namespace TimeTrackerPlanerWeb.Pages
 {
     public class AddTaskModel : PageModel
     {
+        private readonly TimeTrackerPlanerWeb.Models.TasksContext _context;
+
+        public AddTaskModel(TimeTrackerPlanerWeb.Models.TasksContext context)
+        {
+            _context = context;
+        }
+
         [BindProperty]
         public Projects Projects { get; set; }
 
@@ -20,6 +27,8 @@ namespace TimeTrackerPlanerWeb.Pages
 
         public IActionResult OnPost()
         {
+            _context.Projects.Add(Projects);
+            _context.SaveChanges();
             return Content($"Hello {Projects.projectname}");
             //return Page();
         }  
