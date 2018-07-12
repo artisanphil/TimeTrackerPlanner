@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TimeTrackerPlanerWeb.Models;
 
 namespace TimeTrackerPlanerWeb.Pages
@@ -17,20 +18,23 @@ namespace TimeTrackerPlanerWeb.Pages
             _context = context;
         }
 
-        [BindProperty]
-        public Projects Projects { get; set; }
+
+        public SelectList ProjectList { get; set; }
+        public string ProjectID { get; set;  }
 
         public void OnGet()
         {
+            ProjectList = new SelectList(_context.Projects.ToList(), "projectid", "projectname");  
+
             Console.WriteLine("OnGet....");
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string ProjectID)
         {
-            _context.Projects.Add(Projects);
-            _context.SaveChanges();
-            return Content($"Hello {Projects.projectname}");
-            //return Page();
+            //_context.Projects.Add(ProjectID);
+            //_context.SaveChanges();
+            return Content($"Hello {ProjectID}");
+
         }  
     }
 }

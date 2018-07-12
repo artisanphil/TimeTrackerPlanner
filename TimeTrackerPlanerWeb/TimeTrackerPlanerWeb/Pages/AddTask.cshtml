@@ -12,7 +12,10 @@
         <div class="box a4">Time estimation</div>
         <div class="box a5">Week</div>
         <div class="box a6"></div>
-        <div class="box b1"><input asp-for="Projects.projectname" size="10" /></div>
+        <div class="box b1">
+            <select asp-for="ProjectID" asp-items="Model.ProjectList">
+            </select>
+        </div>
         <div class="box b2">B</div>
         <div class="box b3">C</div>
         <div class="box b4">D</div>
