@@ -10,11 +10,11 @@ using TimeTrackerPlanerMVC.Models;
 
 namespace TimeTrackerPlanerMVC.Controllers
 {
-    public class AddTask : Controller
+    public class AddTaskController : Controller
     {
         private readonly TimeTrackerPlanerMVC.Models.TasksContext _context;
 
-        public AddTask(TimeTrackerPlanerMVC.Models.TasksContext context)
+        public AddTaskController(TimeTrackerPlanerMVC.Models.TasksContext context)
         {
             _context = context;
         }
@@ -31,10 +31,24 @@ namespace TimeTrackerPlanerMVC.Controllers
                             Text = p.projectname
                          }).ToList();
 
-
             ViewData["ProjectList"] = ProjectList;
 
             return View();
+        }
+
+        [HttpPost]
+        public List<SelectListItem> GetCategoriesByProjectId(int projectid)
+        {
+            List<SelectListItem> CategoryList = (from p in _context.Categories.AsEnumerable()
+                                                 where p.projectid == projectid
+                                                 select new SelectListItem
+                                                 {
+                                                     Value = p.catid.ToString(),
+                                                     Text = p.catname
+                                                 }
+                                                ).ToList();
+
+            return CategoryList;
         }
 
         [HttpPost]
@@ -42,5 +56,24 @@ namespace TimeTrackerPlanerMVC.Controllers
         {
             return Content($"Hello {ProjectList}");
         }
+
+        public string AddProject(string item)
+        {
+            var projectEntity = new Projects() { projectname = item };
+            _context.Projects.Add(projectEntity);
+            _context.SaveChanges();
+
+            return projectEntity.projectid.ToString();
+        }
+
+        public string AddCategory(string item, int parentid)
+        {
+            var categoryEntity = new Categories() { catname = item, projectid = parentid };
+            _context.Categories.Add(categoryEntity);
+            _context.SaveChanges();
+
+            return categoryEntity.catid.ToString();
+        }
+
     }
 }

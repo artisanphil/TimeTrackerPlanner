@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace TimeTrackerPlanerWeb.Models
+namespace TimeTrackerPlanerMVC.Models
 {
     public class TasksContext : DbContext
     {        

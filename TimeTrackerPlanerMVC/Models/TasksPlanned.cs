@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace TimeTrackerPlanerWeb.Models
+namespace TimeTrackerPlanerMVC.Models
 {
     public class TasksPlanned
     {

@@ -1,0 +1,17 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrackerPlanerMVC", "TimeTrackerPlanerMVC.csproj", "{8AFE43C9-F051-4961-A754-D3286E35DCFC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8AFE43C9-F051-4961-A754-D3286E35DCFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AFE43C9-F051-4961-A754-D3286E35DCFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AFE43C9-F051-4961-A754-D3286E35DCFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AFE43C9-F051-4961-A754-D3286E35DCFC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
