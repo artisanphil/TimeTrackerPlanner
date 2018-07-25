@@ -83,11 +83,11 @@ namespace TimeTrackerPlanerMVC.Migrations
 
                     b.Property<int?>("TasksDoingworkid");
 
-                    b.Property<int>("estimationInMinutes");
+                    b.Property<int>("estimation");
+
+                    b.Property<DateTime>("planneddate");
 
                     b.Property<int>("taskid");
-
-                    b.Property<DateTime>("week");
 
                     b.HasKey("planid");
 

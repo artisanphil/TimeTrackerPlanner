@@ -8,8 +8,8 @@ namespace TimeTrackerPlanerMVC.Models
         [Key]
         public int planid { get; set; }
         public int taskid { get; set; }
-        public int estimationInMinutes { get; set; }
-        public DateTime week { get; set;  }
+        public int estimation { get; set; }
+        public DateTime planneddate { get; set;  }
 
         public virtual TasksDoing TasksDoing { get; set; }
     }

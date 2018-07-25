@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -93,9 +94,21 @@ namespace TimeTrackerPlanerMVC.Controllers
 
 
         [HttpPost]
-        public IActionResult Index(string ProjectList)
+        public IActionResult Index(int TaskList, int TimeEstimation, int WeekList)
         {
-            return Content($"Hello {ProjectList}");
+            DateTime weekDate = DateTime.Now;
+            if(WeekList >= 1)
+            {
+                weekDate = DateTime.Now.AddDays(WeekList * 7);
+            }
+            DateTime datePlanned = DateTimeExtensions.FirstDayOfWeek(weekDate);
+
+
+            var tasksPlannedEntity = new TasksPlanned() { taskid = TaskList, estimation = TimeEstimation, planneddate = datePlanned };
+            _context.TasksPlanned.Add(tasksPlannedEntity);
+            _context.SaveChanges();
+
+            return Content($"Hello {TaskList.ToString()} {TimeEstimation.ToString()} {datePlanned.ToString()}");
         }
 
         public string AddProject(string item)

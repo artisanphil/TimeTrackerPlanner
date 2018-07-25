@@ -1,18 +1,8 @@
 ﻿<Properties StartupConfiguration="{8AFE43C9-F051-4961-A754-D3286E35DCFC}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/AddTask/Index.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/Helpers.cs">
     <Files>
-      <File FileName="Controllers/AddTaskController.cs" Line="117" Column="1" />
-      <File FileName="Controllers/HomeController.cs" Line="1" Column="1" />
-      <File FileName="Startup.cs" Line="32" Column="1" />
-      <File FileName="Views/AddTask/Index.cshtml" Line="12" Column="35" />
-      <File FileName="Views/Shared/_Layout.cshtml" Line="10" Column="62" />
-      <File FileName="wwwroot/js/site.js" Line="61" Column="10" />
-      <File FileName="wwwroot/css/site.css" Line="40" Column="15" />
-      <File FileName="Program.cs" Line="17" Column="1" />
-      <File FileName="Models/TaskNames.cs" Line="11" Column="1" />
-      <File FileName="Models/Projects.cs" Line="10" Column="44" />
-      <File FileName="Models/Categories.cs" Line="11" Column="1" />
-      <File FileName="Models/TasksPlanned.cs" Line="12" Column="43" />
+      <File FileName="Controllers/AddTaskController.cs" Line="102" Column="13" />
+      <File FileName="Models/Helpers.cs" Line="11" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
