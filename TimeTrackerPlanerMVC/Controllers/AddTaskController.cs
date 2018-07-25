@@ -24,12 +24,18 @@ namespace TimeTrackerPlanerMVC.Controllers
         {
            // ProjectList = new SelectList(_context.Projects.ToList(), "projectid", "projectname");  
 
-            List<SelectListItem> ProjectList = (from p in _context.Projects.AsEnumerable()
+            List<SelectListItem> ProjectList =(from p in _context.Projects.AsEnumerable()
                          select new SelectListItem
                          {
                             Value = p.projectid.ToString(),
                             Text = p.projectname
                          }).ToList();
+
+            ProjectList.Insert(0, new SelectListItem()
+            {
+                Text = "Select Project",
+                Value = "0"
+            });
 
             ViewData["ProjectList"] = ProjectList;
 

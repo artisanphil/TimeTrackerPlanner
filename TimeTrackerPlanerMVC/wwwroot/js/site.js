@@ -27,7 +27,14 @@ function AddItemType(itemType) {
     if(itemType == "Category")
     {
        myParentID = $("#ProjectList").val();
+
+        if(myParentID == 0)
+        {
+            alert("Please select a project");
+            return false;
+        }
     }
+
     $.post("/AddTask/Add" + itemType, { item: $("#" + itemType + "Name").val(), parentid: myParentID },
         function(data) {
             console.log(data);
