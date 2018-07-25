@@ -37,7 +37,14 @@ namespace TimeTrackerPlanerMVC.Controllers
                 Value = "0"
             });
 
+
+            List<SelectListItem> WeekList = new List<SelectListItem>();
+            WeekList.Add(new SelectListItem() { Text = "This Week", Value = "0" });
+            WeekList.Add(new SelectListItem() { Text = "Next Week", Value = "1" });
+            WeekList.Add(new SelectListItem() { Text = "2 Weeks", Value = "2" });
+
             ViewData["ProjectList"] = ProjectList;
+            ViewData["WeekList"] = new SelectList(WeekList, "Value", "Text");;
 
             return View();
         }
@@ -54,8 +61,36 @@ namespace TimeTrackerPlanerMVC.Controllers
                                                  }
                                                 ).ToList();
 
+            CategoryList.Insert(0, new SelectListItem()
+            {
+                Text = "Select Category",
+                Value = "0"
+            });
+
             return CategoryList;
         }
+
+        [HttpPost]
+        public List<SelectListItem> GetTasksByCategoryId(int categoryid)
+        {
+            List<SelectListItem> TaskList = (from p in _context.TaskNames.AsEnumerable()
+                                                 where p.categoryid == categoryid
+                                                 select new SelectListItem
+                                                 {
+                                                     Value = p.taskid.ToString(),
+                                                     Text = p.taskname
+                                                 }
+                                                ).ToList();
+
+            TaskList.Insert(0, new SelectListItem()
+            {
+                Text = "Select Task",
+                Value = "0"
+            });
+
+            return TaskList;
+        }
+
 
         [HttpPost]
         public IActionResult Index(string ProjectList)
@@ -79,6 +114,15 @@ namespace TimeTrackerPlanerMVC.Controllers
             _context.SaveChanges();
 
             return categoryEntity.catid.ToString();
+        }
+
+        public string AddTask(string item, int parentid)
+        {
+            var taskEntity = new TaskNames() { taskname = item, categoryid = parentid };
+            _context.TaskNames.Add(taskEntity);
+            _context.SaveChanges();
+
+            return taskEntity.taskid.ToString();
         }
 
     }

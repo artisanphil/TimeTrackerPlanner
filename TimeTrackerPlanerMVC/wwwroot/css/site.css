@@ -30,7 +30,7 @@ body {
 
 .addTaskGrid {
     display: grid;
-    grid-template-columns: 15% 15% 15% 15% 15% 15%;
+    grid-template-columns: 15% 15% 15% 10% 10% 10%;
     grid-template-rows: 20px;
     grid-gap: 10px;
     color: #444;

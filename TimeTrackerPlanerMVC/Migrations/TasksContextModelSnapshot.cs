@@ -22,7 +22,8 @@ namespace TimeTrackerPlanerMVC.Migrations
                     b.Property<int>("catid")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("catname");
+                    b.Property<string>("catname")
+                        .HasColumnType("varchar(100)");
 
                     b.Property<int>("projectid");
 
@@ -36,7 +37,8 @@ namespace TimeTrackerPlanerMVC.Migrations
                     b.Property<int>("projectid")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("projectname");
+                    b.Property<string>("projectname")
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("projectid");
 
@@ -50,7 +52,8 @@ namespace TimeTrackerPlanerMVC.Migrations
 
                     b.Property<int>("categoryid");
 
-                    b.Property<string>("taskname");
+                    b.Property<string>("taskname")
+                        .HasColumnType("varchar(200)");
 
                     b.HasKey("taskid");
 
@@ -80,7 +83,11 @@ namespace TimeTrackerPlanerMVC.Migrations
 
                     b.Property<int?>("TasksDoingworkid");
 
+                    b.Property<int>("estimationInMinutes");
+
                     b.Property<int>("taskid");
+
+                    b.Property<DateTime>("week");
 
                     b.HasKey("planid");
 

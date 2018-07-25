@@ -22,6 +22,25 @@ function GetCategory(_projectid) {
     });
 }
 
+function GetTask(_categoryid) {
+    $.ajax({
+        url: "/AddTask/GetTasksByCategoryId/",
+        data: { categoryid: _categoryid },
+        cache: false,
+        type: "POST",
+        success: function (data) {
+            var markup = "";
+            for (var x = 0; x < data.length; x++) {
+                markup += "<option value=" + data[x]['value'] + ">" + data[x]['text'] + "</option>";
+            }
+            $("#TaskList").html(markup).show();
+        },
+        error: function (reponse) {
+            alert("error : " + reponse);
+        }
+    });
+}
+
 function AddItemType(itemType) {
     myParentID = 0;
     if(itemType == "Category")
@@ -31,6 +50,16 @@ function AddItemType(itemType) {
         if(myParentID == 0)
         {
             alert("Please select a project");
+            return false;
+        }
+    }
+    if(itemType == "Task")
+    {
+       myParentID = $("#CategoryList").val();
+
+        if(myParentID == 0)
+        {
+            alert("Please select a category");
             return false;
         }
     }

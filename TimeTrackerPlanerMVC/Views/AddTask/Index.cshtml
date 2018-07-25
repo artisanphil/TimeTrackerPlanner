@@ -14,11 +14,17 @@
             @Html.DropDownList("ProjectList", null, new { @onchange = "javascript:GetCategory(this.value);" })
         </div>
         <div class="box b2">
-            <select id="CategoryList" name="CategoryList"></select>            
+            <select id="CategoryList" name="CategoryList" onchange="javascript:GetTask(this.value);"></select>            
         </div>
-        <div class="box b3">C</div>
-        <div class="box b4">D</div>
-        <div class="box b5">E</div>
+        <div class="box b3">
+            <select id="TaskList" name="TaskList"></select>
+        </div>
+        <div class="box b4">
+            @Html.TextBox("TimeEstimation", null, new { @type = "number", style = "width: 100px;" })
+        </div>
+        <div class="box b5">
+            @Html.DropDownList("WeekList")
+        </div>
         <div class="box b6"><input type="submit" value="Add" /></div>
         <div class="box c1">
             @Html.TextBox("ProjectName")
@@ -28,7 +34,10 @@
             @Html.TextBox("CategoryName")
             <nobr><a href="#" onclick="AddItemType('Category'); return false;">Add Category</a></nobr>
         </div>
-        <div class="box c3"></div>
+        <div class="box c3">
+            @Html.TextBox("TaskName")
+            <nobr><a href="#" onclick="AddItemType('Task'); return false;">Add Task</a></nobr>
+        </div>
         <div class="box c4"></div>
         <div class="box c5"></div>
         <div class="box c6"></div>
