@@ -14,6 +14,7 @@ namespace TimeTrackerPlanerMVC.Controllers
     public class AddTaskController : Controller
     {
         private readonly TimeTrackerPlanerMVC.Models.TasksContext _context;
+        public IEnumerable<plannedTasksDetail> plannedTasks { get; set; }
 
         public AddTaskController(TimeTrackerPlanerMVC.Models.TasksContext context)
         {
@@ -23,7 +24,15 @@ namespace TimeTrackerPlanerMVC.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-           // ProjectList = new SelectList(_context.Projects.ToList(), "projectid", "projectname");  
+            plannedTasks = from myPlans in _context.TasksPlanned
+                           join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
+                           where myPlans.planneddate >= DateTimeExtensions.FirstDayOfWeek(DateTime.Now)
+                           orderby myPlans.planneddate descending
+                           select new plannedTasksDetail { 
+                                weekPlanned = myPlans.planneddate,
+                                taskname = myTasks.taskname,
+                                estimation = myPlans.estimation
+                            };
 
             List<SelectListItem> ProjectList =(from p in _context.Projects.AsEnumerable()
                          select new SelectListItem
@@ -45,6 +54,8 @@ namespace TimeTrackerPlanerMVC.Controllers
             WeekList.Add(new SelectListItem() { Text = "2 Weeks", Value = "2" });
 
             ViewData["ProjectList"] = ProjectList;
+            Console.WriteLine(plannedTasks);
+            ViewData["plannedTasks"] = plannedTasks.ToList();
             ViewData["WeekList"] = new SelectList(WeekList, "Value", "Text");;
 
             return View();
@@ -108,7 +119,7 @@ namespace TimeTrackerPlanerMVC.Controllers
             _context.TasksPlanned.Add(tasksPlannedEntity);
             _context.SaveChanges();
 
-            return Content($"Hello {TaskList.ToString()} {TimeEstimation.ToString()} {datePlanned.ToString()}");
+            return View();
         }
 
         public string AddProject(string item)

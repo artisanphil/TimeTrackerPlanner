@@ -41,6 +41,25 @@ body {
     font-size: 14px;
 }
 
+
+table#plannedTasks tr:nth-child(even) {
+    background-color: #eee;
+}
+
+table#plannedTasks tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+table#plannedTasks th {
+    font-weight: bold;
+    background-color: #ccc;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 3px;
+}   
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */

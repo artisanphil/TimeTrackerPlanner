@@ -1,46 +1,60 @@
-﻿@{
-}
+﻿
 <h1>Add Task</h1>
 <div>@ViewBag.Message</div>
-<form method="post">
-    <div class="addTaskGrid">
-        <div class="box a1">Project</div>
-        <div class="box a2">Category</div>
-        <div class="box a3">Task</div>
-        <div class="box a4">Time estimation</div>
-        <div class="box a5">Week</div>
-        <div class="box a6"></div>
-        <div class="box b1">
-            @Html.DropDownList("ProjectList", null, new { @onchange = "javascript:GetCategory(this.value);" })
-        </div>
-        <div class="box b2">
-            <select id="CategoryList" name="CategoryList" onchange="javascript:GetTask(this.value);"></select>            
-        </div>
-        <div class="box b3">
-            <select id="TaskList" name="TaskList"></select>
-        </div>
-        <div class="box b4">
-            @Html.TextBox("TimeEstimation", null, new { @type = "number", style = "width: 100px;" })
-        </div>
-        <div class="box b5">
-            @Html.DropDownList("WeekList")
-        </div>
-        <div class="box b6"><input type="submit" value="Add" /></div>
-        <div class="box c1">
-            @Html.TextBox("ProjectName")
-            <nobr><a href="#" onclick="AddItemType('Project'); return false;">Add Project</a></nobr>
-        </div>
-        <div class="box c2">
-            @Html.TextBox("CategoryName")
-            <nobr><a href="#" onclick="AddItemType('Category'); return false;">Add Category</a></nobr>
-        </div>
-        <div class="box c3">
-            @Html.TextBox("TaskName")
-            <nobr><a href="#" onclick="AddItemType('Task'); return false;">Add Task</a></nobr>
-        </div>
-        <div class="box c4"></div>
-        <div class="box c5"></div>
-        <div class="box c6"></div>
+<table id="plannedTasks">
+    <thead>
+    <th>Planned Week</th>
+    <th>Task</th>
+    <th>Estimation</th>
+    </thead>
+    @foreach (var item in ViewData["plannedTasks"] as List<plannedTasksDetail>)
+    {
+        <tr>
+            <td>@item.weekPlanned</td>
+            <td>@item.taskname</td>
+            <td>@item.estimation min.</td>
+        </tr>
+   }
+</table>
+    <form method="post">
+        <div class="addTaskGrid">
+            <div class="box a1">Project</div>
+            <div class="box a2">Category</div>
+            <div class="box a3">Task</div>
+            <div class="box a4">Time estimation</div>
+            <div class="box a5">Week</div>
+            <div class="box a6"></div>
+            <div class="box b1">
+                @Html.DropDownList("ProjectList", null, new { @onchange = "javascript:GetCategory(this.value);" })
+            </div>
+            <div class="box b2">
+                <select id="CategoryList" name="CategoryList" onchange="javascript:GetTask(this.value);"></select>
+            </div>
+            <div class="box b3">
+                <select id="TaskList" name="TaskList"></select>
+            </div>
+            <div class="box b4">
+                @Html.TextBox("TimeEstimation", null, new { @type = "number", style = "width: 100px;" })
+            </div>
+            <div class="box b5">
+                @Html.DropDownList("WeekList")
+            </div>
+            <div class="box b6"><input type="submit" value="Add" /></div>
+            <div class="box c1">
+                @Html.TextBox("ProjectName")
+                <nobr><a href="#" onclick="AddItemType('Project'); return false;">Add Project</a></nobr>
+            </div>
+            <div class="box c2">
+                @Html.TextBox("CategoryName")
+                <nobr><a href="#" onclick="AddItemType('Category'); return false;">Add Category</a></nobr>
+            </div>
+            <div class="box c3">
+                @Html.TextBox("TaskName")
+                <nobr><a href="#" onclick="AddItemType('Task'); return false;">Add Task</a></nobr>
+            </div>
+            <div class="box c4"></div>
+            <div class="box c5"></div>
+            <div class="box c6"></div>
 
-    </div>
-</form>
+        </div>
+    </form>
