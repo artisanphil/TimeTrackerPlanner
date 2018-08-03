@@ -119,7 +119,7 @@ namespace TimeTrackerPlanerMVC.Controllers
             _context.TasksPlanned.Add(tasksPlannedEntity);
             _context.SaveChanges();
 
-            return View();
+            return RedirectToAction("Index");
         }
 
         public string AddProject(string item)

@@ -1,10 +1,9 @@
 ﻿<Properties StartupConfiguration="{8AFE43C9-F051-4961-A754-D3286E35DCFC}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="wwwroot/css/site.css">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Models/plannedTasksDetail.cs">
     <Files>
       <File FileName="Controllers/AddTaskController.cs" Line="35" Column="1" />
       <File FileName="Views/AddTask/Index.cshtml" Line="15" Column="38" />
-      <File FileName="Models/plannedTasksDetail.cs" Line="8" Column="42" />
-      <File FileName="wwwroot/css/site.css" Line="44" Column="13" />
+      <File FileName="Models/plannedTasksDetail.cs" Line="6" Column="49" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
