@@ -41,6 +41,41 @@ function GetTask(_categoryid) {
     });
 }
 
+function Start() {
+    $("#btnStart").hide();
+    $("#btnStop").show();
+    const now = new Date();
+    $("#starttime").val(now.getTime());
+    $.post("/Home/Start", { taskid: $("#plannedTasksList").val() },
+        function(data) {
+            console.log(data);
+            if(data > 0)
+            {
+                $("#workid").val(data)
+            }
+
+        });  
+          
+}
+
+function Stop() {
+    $("#btnStart").show();
+    $("#btnStop").hide();
+    const now = new Date();
+    var diffMs = now.getTime() - $("#starttime").val();
+    var duration = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+    $.post("/Home/Stop", { workid: $("#workid").val(), duration: duration },
+        function(data) {
+            console.log(data);
+            if(data > 0)
+            {
+                //
+            }
+
+        });  
+          
+}
+
 function AddItemType(itemType) {
     myParentID = 0;
     if(itemType == "Category")
