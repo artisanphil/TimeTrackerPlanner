@@ -1,1 +1,16 @@
-﻿Test
+﻿@model completedTasksViewModel
+<table id="plannedTasks">
+<thead>
+    <th>Start Time</th>
+    <th>Task</th>
+    <th>Duration</th>
+</thead>
+@foreach(var item in Model.completedTasks)
+{
+    <tr>
+        <td>@item.starttime</td>
+        <td>@item.taskname</td>
+        <td>@item.duration min.</td>
+    </tr>
+}
+</table>

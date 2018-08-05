@@ -23,16 +23,18 @@ namespace TimeTrackerPlanerMVC.Controllers
             List<SelectListItem> plannedTasksWeek = (from myPlans in _context.TasksPlanned
                            join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
                            where myPlans.planneddate == DateTimeExtensions.FirstDayOfWeek(DateTime.Now)
-                           orderby myTasks.taskname descending
+                           orderby myTasks.taskname ascending
                             select new SelectListItem
                             {
                                 Value = myPlans.taskid.ToString(),
                                 Text = myTasks.taskname
                            }).ToList();           
 
+            var completedTasks = GetCompletedTasksViewModel();
+
             ViewData["plannedTasksList"] = plannedTasksWeek;
 
-            return View();
+            return View(completedTasks);
         }
 
         [HttpPost]
@@ -47,6 +49,34 @@ namespace TimeTrackerPlanerMVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult GetCompletedTasks()
+        {
+
+            var completedTasks = GetCompletedTasksViewModel();
+
+            return PartialView("CategoryResults", completedTasks);
+        }
+
+        private completedTasksViewModel GetCompletedTasksViewModel()
+        {
+            completedTasksViewModel completedTasksVM = new completedTasksViewModel();
+
+            completedTasksVM.completedTasks = (from tasksCompleted in _context.TasksDoing
+                                         join myTasks in _context.TaskNames on tasksCompleted.taskid equals myTasks.taskid
+                                               where tasksCompleted.starttime >= DateTime.Today && tasksCompleted.starttime <= DateTime.Today.AddDays(1)
+                                         orderby tasksCompleted.starttime ascending
+                                         select new completedTasksDetail
+                                         {
+                                             starttime = tasksCompleted.starttime,
+                                             taskname = myTasks.taskname,
+                                             duration = tasksCompleted.duration
+                                         }).ToList();
+
+            return completedTasksVM;
+        }
+
         public string Start(int taskid)
         {
             var workEntity = new TasksDoing() { taskid = taskid, starttime = DateTime.Now };
