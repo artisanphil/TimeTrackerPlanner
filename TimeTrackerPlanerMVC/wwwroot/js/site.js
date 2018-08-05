@@ -41,11 +41,19 @@ function GetTask(_categoryid) {
     });
 }
 
+function addZero(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
+
 function Start() {
     $("#btnStart").hide();
     $("#btnStop").show();
     const now = new Date();
-    $("#starttime").val(now.getTime());
+    $("#starttimems").val(now.getTime());
+    $("#starttime").val(addZero(now.getHours()) + ":" + addZero(now.getMinutes()));
     $.post("/Home/Start", { taskid: $("#plannedTasksList").val() },
         function(data) {
             console.log(data);
@@ -62,8 +70,9 @@ function Stop() {
     $("#btnStart").show();
     $("#btnStop").hide();
     const now = new Date();
-    var diffMs = now.getTime() - $("#starttime").val();
+    var diffMs = now.getTime() - $("#starttimems").val();
     var duration = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+    $("#duration").val(duration);
     $.post("/Home/Stop", { workid: $("#workid").val(), duration: duration },
         function(data) {
             console.log(data);

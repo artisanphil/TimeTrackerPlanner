@@ -35,6 +35,18 @@ namespace TimeTrackerPlanerMVC.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Index(int plannedTasksList, string starttime, int duration)
+        {
+            TimeSpan ts = TimeSpan.Parse(starttime);
+            DateTime startDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, ts.Hours, ts.Minutes, 0); 
+
+            var tasksDoingEntity = new TasksDoing() { taskid = plannedTasksList, starttime = startDateTime, duration = duration };
+            _context.TasksDoing.Add(tasksDoingEntity);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
         public string Start(int taskid)
         {
             var workEntity = new TasksDoing() { taskid = taskid, starttime = DateTime.Now };

@@ -19,4 +19,10 @@
   <ItemGroup>
     <Folder Include="Views\AddTask\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Views\Home\_TasksCompleted.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Home\_TasksCompleted.cshtml" />
+  </ItemGroup>
 </Project>
