@@ -5,12 +5,12 @@
 <a href="/AddTask">Add Task / Plan Week</a>
 <h3>Current Task</h3>
 <form method="post">
-    <input type="hidden" id="workid" />
+    <input type="hidden" id="workid" name="workid" />
     <input type="hidden" id="starttimems" />
     @Html.DropDownList("plannedTasksList")
     Starttime: <input type="time" id="starttime" name="starttime" value="00:00"> 
     Duration: @Html.TextBox("duration", null, new { @type = "number", style = "width: 50px;" }) 
-    <input type="button" id=btnStart onclick="Start(); return false;" value="Start" /> <input type="button" id=btnStop onclick="Stop(); return false;" value="Stop" /> 
+    <input type="button" id=btnStart onclick="Start(); return false;" value="Start" /> <input type="submit" id=btnStop value="Stop" /> 
     <button type="submit">Add manually</button>
 </form>
 <br />

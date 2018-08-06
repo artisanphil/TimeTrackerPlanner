@@ -38,13 +38,27 @@ namespace TimeTrackerPlanerMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(int plannedTasksList, string starttime, int duration)
+        public IActionResult Index(int plannedTasksList, string starttime, int duration = 0, int workid = 0)
         {
             TimeSpan ts = TimeSpan.Parse(starttime);
             DateTime startDateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, ts.Hours, ts.Minutes, 0); 
 
-            var tasksDoingEntity = new TasksDoing() { taskid = plannedTasksList, starttime = startDateTime, duration = duration };
-            _context.TasksDoing.Add(tasksDoingEntity);
+            if (duration == 0)
+            {
+                TimeSpan timedifference = DateTime.Now - startDateTime;
+                duration = (int)timedifference.TotalMinutes;
+            }
+
+            if (workid > 0)
+            {
+                var tasksDoingEntity = _context.TasksDoing.Find(workid);
+                tasksDoingEntity.duration = duration;
+            }
+            else
+            {
+                var tasksDoingEntity = new TasksDoing() { taskid = plannedTasksList, starttime = startDateTime, duration = duration };
+                _context.TasksDoing.Add(tasksDoingEntity);
+            }
             _context.SaveChanges();
 
             return RedirectToAction("Index");
@@ -85,7 +99,7 @@ namespace TimeTrackerPlanerMVC.Controllers
 
             return workEntity.workid.ToString();
         }
-
+        /*
         public int Stop(int workid, int duration)
         {
             var workEntity = _context.TasksDoing.Find(workid);
@@ -94,7 +108,7 @@ namespace TimeTrackerPlanerMVC.Controllers
 
             return 1;
         }
-
+        */
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

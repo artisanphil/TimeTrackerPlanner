@@ -66,25 +66,6 @@ function Start() {
           
 }
 
-function Stop() {
-    $("#btnStart").show();
-    $("#btnStop").hide();
-    const now = new Date();
-    var diffMs = now.getTime() - $("#starttimems").val();
-    var duration = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-    $("#duration").val(duration);
-    $.post("/Home/Stop", { workid: $("#workid").val(), duration: duration },
-        function(data) {
-            console.log(data);
-            if(data > 0)
-            {
-                //
-            }
-
-        });  
-          
-}
-
 function AddItemType(itemType) {
     myParentID = 0;
     if(itemType == "Category")

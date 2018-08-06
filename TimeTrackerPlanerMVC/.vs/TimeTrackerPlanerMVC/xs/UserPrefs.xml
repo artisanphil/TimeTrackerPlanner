@@ -1,15 +1,15 @@
-﻿<Properties StartupConfiguration="{8AFE43C9-F051-4961-A754-D3286E35DCFC}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Home/Index.cshtml">
+﻿<Properties StartupConfiguration="{8AFE43C9-F051-4961-A754-D3286E35DCFC}|Default" GitUserInfo="UsingGIT">
+  <MonoDevelop.Ide.Workbench ActiveDocument="TimeTrackerPlanerMVC Status">
     <Files>
       <File FileName="Controllers/AddTaskController.cs" Line="17" Column="33" />
-      <File FileName="Views/AddTask/Index.cshtml" Line="19" Column="5" />
+      <File FileName="Views/AddTask/Index.cshtml" Line="18" Column="9" />
       <File FileName="Models/plannedTasksDetail.cs" Line="6" Column="49" />
-      <File FileName="Views/Home/Index.cshtml" Line="11" Column="50" />
-      <File FileName="Controllers/HomeController.cs" Line="16" Column="1" />
-      <File FileName="wwwroot/js/site.js" Line="75" Column="34" />
+      <File FileName="Views/Home/Index.cshtml" Line="8" Column="50" />
+      <File FileName="Controllers/HomeController.cs" Line="43" Column="1" />
+      <File FileName="wwwroot/js/site.js" Line="68" Column="1" />
       <File FileName="wwwroot/css/site.css" Line="63" Column="9" />
-      <File FileName="Views/Home/_TasksCompleted.cshtml" Line="1" Column="5" />
-      <File FileName="Models/completedTasksDetail.cs" Line="6" Column="1" />
+      <File FileName="Views/Home/_TasksCompleted.cshtml" Line="1" Column="31" />
+      <File FileName="TimeTrackerPlanerMVC Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
