@@ -2,6 +2,7 @@
 <table id="plannedTasks">
 <thead>
     <th>Start Time</th>
+    <th>Project</th>
     <th>Task</th>
     <th>Duration</th>
 </thead>
@@ -9,7 +10,8 @@
 {
     <tr>
         <td>@item.starttime</td>
-        <td>@item.taskname</td>
+        <td>@item.projectname</td>
+        <td>@item.categoryname: @item.taskname</td>
         <td>@item.duration min.</td>
     </tr>
 }

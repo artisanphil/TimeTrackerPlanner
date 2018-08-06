@@ -22,6 +22,25 @@ function GetCategory(_projectid) {
     });
 }
 
+function GetPlannedTasks(_projectid) {
+    $.ajax({
+        url: "/Home/GetPlannedTasksByProjectId/",
+        data: { projectid: _projectid },
+        cache: false,
+        type: "POST",
+        success: function (data) {
+            var markup = "";
+            for (var x = 0; x < data.length; x++) {
+                markup += "<option value=" + data[x]['value'] + ">" + data[x]['text'] + "</option>";
+            }
+            $("#plannedTasksList").html(markup).show();
+        },
+        error: function (reponse) {
+            alert("error : " + reponse);
+        }
+    });
+}
+
 function GetTask(_categoryid) {
     $.ajax({
         url: "/AddTask/GetTasksByCategoryId/",

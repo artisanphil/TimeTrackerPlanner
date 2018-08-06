@@ -7,10 +7,20 @@
 <form method="post">
     <input type="hidden" id="workid" name="workid" />
     <input type="hidden" id="starttimems" />
-    @Html.DropDownList("plannedTasksList")
-    Starttime: <input type="time" id="starttime" name="starttime" value="00:00"> 
-    Duration: @Html.TextBox("duration", null, new { @type = "number", style = "width: 50px;" }) 
-    <input type="button" id=btnStart onclick="Start(); return false;" value="Start" /> <input type="submit" id=btnStop value="Stop" /> 
+    @Html.DropDownList("ProjectList", null, new { @onchange = "javascript:GetPlannedTasks(this.value);" }) &nbsp;
+    @if (ViewData["plannedTasksList"] != null)
+    {
+        @Html.DropDownList("plannedTasksList")
+    }
+    else
+    {
+        <select id="plannedTasksList" name="plannedTasksList"></select>
+    }
+    <br />
+    Starttime: <input type="time" id="starttime" name="starttime" value="00:00">
+    Duration: @Html.TextBox("duration", null, new
+    { @type = "number", style = "width: 50px;" })
+    <input type="button" id=btnStart onclick="Start(); return false;" value="Start" />  <input type="submit" id=btnStop value="Stop" />
     <button type="submit">Add manually</button>
 </form>
 <br />

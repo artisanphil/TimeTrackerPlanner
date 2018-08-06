@@ -35,6 +35,7 @@ namespace TimeTrackerPlanerMVC.Controllers
                             };
 
             List<SelectListItem> ProjectList =(from p in _context.Projects.AsEnumerable()
+                         orderby p.projectname ascending
                          select new SelectListItem
                          {
                             Value = p.projectid.ToString(),
