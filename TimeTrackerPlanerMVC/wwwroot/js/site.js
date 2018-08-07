@@ -41,6 +41,13 @@ function GetPlannedTasks(_projectid) {
     });
 }
 
+function setCompleted(planid) {
+    $.post("/AddTask/setCompleted", { planid: planid },
+        function(data) {
+            console.log(data);
+        });       
+}
+
 function GetTask(_categoryid) {
     $.ajax({
         url: "/AddTask/GetTasksByCategoryId/",

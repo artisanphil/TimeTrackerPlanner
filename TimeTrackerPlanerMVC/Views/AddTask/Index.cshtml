@@ -30,7 +30,7 @@
             </thead>
         }
         <tr>
-            <td><strong>@item.projectname:</strong> @item.taskname (@item.catname)</td>
+            <td><input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid);" /> <strong>@item.projectname:</strong> @item.taskname (@item.catname)</td>
             <td>@item.estimation.ToString() min.</td>
         </tr>
 

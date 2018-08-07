@@ -28,14 +28,16 @@ namespace TimeTrackerPlanerMVC.Controllers
                            join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
                             join myCategories in _context.Categories on myTasks.categoryid equals myCategories.catid
                            join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
-                           where myPlans.planneddate >= DateTimeExtensions.FirstDayOfWeek(DateTime.Now)
+                           where myPlans.planneddate >= DateTimeExtensions.FirstDayOfWeek(DateTime.Now) 
                            orderby myPlans.planneddate descending, myProjects.projectname ascending
                            select new plannedTasksDetail { 
+                                planid = myPlans.planid,
                                 weekPlanned = myPlans.planneddate,
                                 taskname = myTasks.taskname,
                                 catname = myCategories.catname,
                                 projectname = myProjects.projectname,
-                                estimation = myPlans.estimation
+                                estimation = myPlans.estimation,
+                                completed = myPlans.completed
                             };
 
             List<SelectListItem> ProjectList =(from p in _context.Projects.AsEnumerable()
@@ -152,6 +154,15 @@ namespace TimeTrackerPlanerMVC.Controllers
             _context.SaveChanges();
 
             return taskEntity.taskid.ToString();
+        }
+
+        public int setCompleted(int planid)
+        {
+            var taskEntity = _context.TasksPlanned.Find(planid);
+            taskEntity.completed = true;
+            _context.SaveChanges();
+
+            return planid;
         }
 
     }
