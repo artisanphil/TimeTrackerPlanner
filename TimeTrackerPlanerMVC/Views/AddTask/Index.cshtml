@@ -5,6 +5,7 @@
     @{
         string week = "";
         int estimateSum = 0;
+        int timeSpentSum = 0;
     }
     @foreach (var item in ViewData["plannedTasks"] as List<plannedTasksDetail>)
     {
@@ -15,30 +16,36 @@
                 <tr>
                     <td></td>
                     <td>@estimateSum.ToString() min.</td>
+                    <td>@timeSpentSum.ToString() min.</td>
                 </tr>
                 estimateSum = 0;
+                timeSpentSum = 0;
             }
             week = @item.weekPlanned.ToString("MM/dd/yyyy");
             <thead>
                 <tr>
-                    <th colspan="2" style="background-color:#CCCCCC;"><h4>@item.weekPlanned.ToString("d. MMMM yyyy")</h4></th>
+                    <th colspan="3" style="background-color:#CCCCCC;"><h4>@item.weekPlanned.ToString("d. MMMM yyyy")</h4></th>
                 </tr>
                 <tr>
                     <th>Task</th>
                     <th>Estimation</th>
+                    <th>Time Spent</th>
                 </tr>
             </thead>
         }
         <tr>
             <td><input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid);" /> <strong>@item.projectname:</strong> @item.taskname (@item.catname)</td>
             <td>@item.estimation.ToString() min.</td>
+            <td>@item.timeSpent.ToString() min.</td>
         </tr>
 
         estimateSum += item.estimation;
+        timeSpentSum += item.timeSpent;
     }
     <tr>
         <td></td>
         <td>@estimateSum.ToString() min.</td>
+        <td>@timeSpentSum.ToString() min.</td>
     </tr>
    </table>
     <form method="post">

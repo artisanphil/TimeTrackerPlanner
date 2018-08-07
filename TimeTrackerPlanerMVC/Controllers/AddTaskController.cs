@@ -28,7 +28,7 @@ namespace TimeTrackerPlanerMVC.Controllers
                            join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
                             join myCategories in _context.Categories on myTasks.categoryid equals myCategories.catid
                            join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
-                           where myPlans.planneddate >= DateTimeExtensions.FirstDayOfWeek(DateTime.Now) 
+                            where myPlans.planneddate >= DateTimeExtensions.FirstDayOfWeek(DateTime.Now) 
                            orderby myPlans.planneddate descending, myProjects.projectname ascending
                            select new plannedTasksDetail { 
                                 planid = myPlans.planid,
@@ -37,6 +37,11 @@ namespace TimeTrackerPlanerMVC.Controllers
                                 catname = myCategories.catname,
                                 projectname = myProjects.projectname,
                                 estimation = myPlans.estimation,
+                                timeSpent = (from p in _context.TasksDoing
+                                             where p.taskid == myPlans.taskid &&
+                                             p.starttime >=  DateTimeExtensions.FirstDayOfWeek(DateTime.Now) &&
+                                             p.starttime <= DateTimeExtensions.FirstDayOfWeek(DateTime.Now.AddDays(7))
+                                    select p.duration).Sum(),
                                 completed = myPlans.completed
                             };
 
