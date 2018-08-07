@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using TimeTrackerPlanerMVC.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
+ 
 namespace TimeTrackerPlanerMVC.Controllers
 {
     public class AddTaskController : Controller
@@ -26,11 +26,15 @@ namespace TimeTrackerPlanerMVC.Controllers
         {
             plannedTasks = from myPlans in _context.TasksPlanned
                            join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
+                            join myCategories in _context.Categories on myTasks.categoryid equals myCategories.catid
+                           join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
                            where myPlans.planneddate >= DateTimeExtensions.FirstDayOfWeek(DateTime.Now)
-                           orderby myPlans.planneddate descending
+                           orderby myPlans.planneddate descending, myProjects.projectname ascending
                            select new plannedTasksDetail { 
                                 weekPlanned = myPlans.planneddate,
                                 taskname = myTasks.taskname,
+                                catname = myCategories.catname,
+                                projectname = myProjects.projectname,
                                 estimation = myPlans.estimation
                             };
 

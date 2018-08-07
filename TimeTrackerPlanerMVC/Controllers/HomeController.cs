@@ -12,7 +12,6 @@ namespace TimeTrackerPlanerMVC.Controllers
     public class HomeController : Controller
     {
         private readonly TimeTrackerPlanerMVC.Models.TasksContext _context;
-        private int projectid;
 
         public HomeController(TimeTrackerPlanerMVC.Models.TasksContext context)
         {

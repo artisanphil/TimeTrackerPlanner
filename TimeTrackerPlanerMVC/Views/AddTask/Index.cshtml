@@ -2,20 +2,45 @@
 <h1>Add Task</h1>
 <div>@ViewBag.Message</div>
 <table id="plannedTasks">
-    <thead>
-    <th>Planned Week</th>
-    <th>Task</th>
-    <th>Estimation</th>
-    </thead>
+    @{
+        string week = "";
+        int estimateSum = 0;
+    }
     @foreach (var item in ViewData["plannedTasks"] as List<plannedTasksDetail>)
     {
+        if (@item.weekPlanned.ToString("MM/dd/yyyy") != week)
+        {
+            if (week != "")
+            {
+                <tr>
+                    <td></td>
+                    <td>@estimateSum.ToString() min.</td>
+                </tr>
+                estimateSum = 0;
+            }
+            week = @item.weekPlanned.ToString("MM/dd/yyyy");
+            <thead>
+                <tr>
+                    <th colspan="2" style="background-color:#CCCCCC;"><h4>@item.weekPlanned.ToString("d. MMMM yyyy")</h4></th>
+                </tr>
+                <tr>
+                    <th>Task</th>
+                    <th>Estimation</th>
+                </tr>
+            </thead>
+        }
         <tr>
-            <td>@item.weekPlanned</td>
-            <td>@item.taskname</td>
-            <td>@item.estimation min.</td>
+            <td><strong>@item.projectname:</strong> @item.taskname (@item.catname)</td>
+            <td>@item.estimation.ToString() min.</td>
         </tr>
-   }
-</table>
+
+        estimateSum += item.estimation;
+    }
+    <tr>
+        <td></td>
+        <td>@estimateSum.ToString() min.</td>
+    </tr>
+   </table>
     <form method="post">
         <div class="addTaskGrid">
             <div class="box a1">Project</div>
