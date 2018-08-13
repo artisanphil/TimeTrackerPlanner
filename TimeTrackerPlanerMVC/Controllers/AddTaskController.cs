@@ -39,8 +39,8 @@ namespace TimeTrackerPlanerMVC.Controllers
                                 estimation = myPlans.estimation,
                                 timeSpent = (from p in _context.TasksDoing
                                              where p.taskid == myPlans.taskid &&
-                                             p.starttime >=  DateTimeExtensions.FirstDayOfWeek(DateTime.Now) &&
-                                             p.starttime <= DateTimeExtensions.FirstDayOfWeek(DateTime.Now.AddDays(7))
+                                             p.starttime >=  DateTimeExtensions.FirstDayOfWeek(myPlans.planneddate) &&
+                                             p.starttime <= DateTimeExtensions.FirstDayOfWeek(myPlans.planneddate.AddDays(7))
                                     select p.duration).Sum(),
                                 completed = myPlans.completed
                             };

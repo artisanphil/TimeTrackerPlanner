@@ -7,14 +7,13 @@
 <form method="post">
     <input type="hidden" id="workid" name="workid" />
     <input type="hidden" id="starttimems" />
-    @Html.DropDownList("ProjectList", null, new { @onchange = "javascript:GetPlannedTasks(this.value);" }) &nbsp;
     @if (ViewData["plannedTasksList"] != null)
     {
         @Html.DropDownList("plannedTasksList")
     }
     else
     {
-        <select id="plannedTasksList" name="plannedTasksList"></select>
+        @Html.DisplayText("All tasks completed");
     }
     <br />
     Starttime: <input type="time" id="starttime" name="starttime" value="00:00">

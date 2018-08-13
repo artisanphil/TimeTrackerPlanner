@@ -20,32 +20,10 @@ namespace TimeTrackerPlanerMVC.Controllers
 
         public IActionResult Index(int projectid = 0, int taskid = 0)
         {
-            List<SelectListItem> myProjectList = (from p in _context.Projects.AsEnumerable()
-                                                orderby p.projectname ascending
-                                                select new SelectListItem
-                                                {
-                                                    Value = p.projectid.ToString(),
-                                                    Text = p.projectname
-                                                }).ToList();
-
-            myProjectList.Insert(0, new SelectListItem()
-            {
-                Text = "Select Project",
-                Value = "0"
-            });
-
-
-            var selected = myProjectList.Where(x => x.Value == projectid.ToString()).First();
-            selected.Selected = true;
-
-            if(projectid > 0)
-            {   
-                ViewData["plannedTasksList"] = GetPlannedTasksByProjectId(projectid, taskid);
-            }
+            ViewData["plannedTasksList"] = GetPlannedTasksByProjectId(taskid);
 
             var completedTasks = GetCompletedTasksViewModel();
 
-            ViewData["ProjectList"] = myProjectList;
 
             return View(completedTasks);
         }
@@ -124,19 +102,26 @@ namespace TimeTrackerPlanerMVC.Controllers
         }
 
         [HttpPost]
-        public List<SelectListItem> GetPlannedTasksByProjectId(int projectid, int taskid = 0)
+        public List<SelectListItem> GetPlannedTasksByProjectId(int taskid = 0)
         {
             List<SelectListItem> plannedTasksWeek = (from myPlans in _context.TasksPlanned
                            join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
                              join myCategories in _context.Categories on myTasks.categoryid equals myCategories.catid
                              join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
-                           where myPlans.planneddate == DateTimeExtensions.FirstDayOfWeek(DateTime.Now) && myProjects.projectid == projectid
-                           orderby myTasks.taskname ascending
+                           where myPlans.planneddate == DateTimeExtensions.FirstDayOfWeek(DateTime.Now) 
+                                                     && myPlans.completed == false
+                            orderby myProjects.projectname ascending, myTasks.taskname ascending
                             select new SelectListItem
                             {
                                 Value = myPlans.taskid.ToString(),
-                                Text = myTasks.taskname + " (" + myCategories.catname + ")"
+                Text = myProjects.projectname + ": " + myTasks.taskname + " (" + myCategories.catname + ")" 
                            }).ToList();
+
+            plannedTasksWeek.Insert(0, new SelectListItem()
+            {
+                Text = "",
+                Value = "0"
+            });
 
             if (taskid > 0)
             {
