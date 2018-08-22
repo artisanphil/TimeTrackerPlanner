@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>79a3edd0-2092-40a2-a04d-dcb46d5ca9ed</UserSecretsId>
+    <DockerComposeProjectPath>docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,9 +19,13 @@
 
   <ItemGroup>
     <Folder Include="Views\AddTask\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Home\_TasksCompleted.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Dockerfile" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Home\_TasksCompleted.cshtml" />

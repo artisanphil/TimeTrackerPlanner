@@ -23,8 +23,8 @@ function GetCategory(_projectid) {
 }
 
 
-function setCompleted(planid) {
-    $.post("/AddTask/setCompleted", { planid: planid },
+function setCompleted(planid, completed) {
+    $.post("/AddTask/setCompleted", { planid: planid, completed: completed },
         function(data) {
             console.log(data);
         });       

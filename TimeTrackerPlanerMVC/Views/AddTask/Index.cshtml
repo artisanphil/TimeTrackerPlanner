@@ -1,5 +1,4 @@
-﻿
-<h1>Add Task</h1>
+﻿<h1>Add Task</h1>
 <div>@ViewBag.Message</div>
 <table id="plannedTasks">
     @{
@@ -34,7 +33,7 @@
             </thead>
         }
         <tr>
-            <td><input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid);" /> <strong>@item.projectname:</strong> @item.taskname (@item.catname)</td>
+            <td><input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid, @item.completed.ToString().ToLower());" /> <a href="?planid=@item.planid"><strong>@item.projectname:</strong> @item.taskname (@item.catname)</a></td>
             <td>@item.estimation.ToString() min.</td>
             <td>@item.timeSpent.ToString() min.</td>
         </tr>
@@ -87,6 +86,5 @@
             <div class="box c4"></div>
             <div class="box c5"></div>
             <div class="box c6"></div>
-
         </div>
     </form>

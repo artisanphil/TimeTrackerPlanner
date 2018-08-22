@@ -22,7 +22,7 @@ namespace TimeTrackerPlanerMVC.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(int planid = 0)
         {
             plannedTasks = from myPlans in _context.TasksPlanned
                            join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
@@ -59,14 +59,13 @@ namespace TimeTrackerPlanerMVC.Controllers
                 Value = "0"
             });
 
-
             List<SelectListItem> WeekList = new List<SelectListItem>();
             WeekList.Add(new SelectListItem() { Text = "This Week", Value = "0" });
             WeekList.Add(new SelectListItem() { Text = "Next Week", Value = "1" });
             WeekList.Add(new SelectListItem() { Text = "2 Weeks", Value = "2" });
 
             ViewData["ProjectList"] = ProjectList;
-            Console.WriteLine(plannedTasks);
+
             ViewData["plannedTasks"] = plannedTasks.ToList();
             ViewData["WeekList"] = new SelectList(WeekList, "Value", "Text");;
 
@@ -161,10 +160,14 @@ namespace TimeTrackerPlanerMVC.Controllers
             return taskEntity.taskid.ToString();
         }
 
-        public int setCompleted(int planid)
+        public int setCompleted(int planid, bool completed)
         {
             var taskEntity = _context.TasksPlanned.Find(planid);
-            taskEntity.completed = true;
+            taskEntity.completed = false;
+            if(!completed)
+            {
+                taskEntity.completed = true;    
+            }
             _context.SaveChanges();
 
             return planid;

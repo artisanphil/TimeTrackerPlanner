@@ -6,23 +6,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TimeTrackerPlanerMVC.Models;
+using TimeTrackerPlanerMVC.Services;
 
 namespace TimeTrackerPlanerMVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly TimeTrackerPlanerMVC.Models.TasksContext _context;
+        private readonly TaskService taskService;
 
-        public HomeController(TimeTrackerPlanerMVC.Models.TasksContext context)
+        public HomeController(TimeTrackerPlanerMVC.Models.TasksContext context, TaskService taskService)
         {
             _context = context;
+            this.taskService = taskService;
         }
 
         public IActionResult Index(int projectid = 0, int taskid = 0)
         {
             ViewData["plannedTasksList"] = GetPlannedTasksByProjectId(taskid);
 
-            var completedTasks = GetCompletedTasksViewModel();
+            var completedTasks = taskService.GetCompletedTaskItems();
 
 
             return View(completedTasks);
@@ -59,31 +62,9 @@ namespace TimeTrackerPlanerMVC.Controllers
         public IActionResult GetCompletedTasks()
         {
 
-            var completedTasks = GetCompletedTasksViewModel();
+            var completedTasks = taskService.GetCompletedTaskItems();
 
             return PartialView("CategoryResults", completedTasks);
-        }
-
-        private completedTasksViewModel GetCompletedTasksViewModel()
-        {
-            completedTasksViewModel completedTasksVM = new completedTasksViewModel();
-
-            completedTasksVM.completedTasks = (from tasksCompleted in _context.TasksDoing
-                                            join myTasks in _context.TaskNames on tasksCompleted.taskid equals myTasks.taskid
-                                            join myCategories in _context.Categories on myTasks.categoryid equals myCategories.catid
-                                            join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
-                                            where tasksCompleted.starttime >= DateTime.Today && tasksCompleted.starttime <= DateTime.Today.AddDays(1)
-                                            orderby tasksCompleted.starttime ascending
-                                         select new completedTasksDetail
-                                         {
-                                             starttime = tasksCompleted.starttime,
-                                             categoryname = myCategories.catname,
-                                             projectname = myProjects.projectname,
-                                             taskname = myTasks.taskname,
-                                             duration = tasksCompleted.duration
-                                         }).ToList();
-
-            return completedTasksVM;
         }
 
         public string Start(int taskid)

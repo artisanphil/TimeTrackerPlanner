@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.MySqlClient;
 using TimeTrackerPlanerMVC.Models;
+using TimeTrackerPlanerMVC.Services;
 
 namespace TimeTrackerPlanerMVC
 {
@@ -33,6 +34,8 @@ namespace TimeTrackerPlanerMVC
                 Configuration.GetConnectionString("DefaultConnection"));
             builder.Password = Configuration["dbpw"];
             _connection = builder.ConnectionString;
+
+            services.AddScoped<TaskService>();
 
             services.AddDbContext<TasksContext>(options =>
             options.UseMySql(_connection));
