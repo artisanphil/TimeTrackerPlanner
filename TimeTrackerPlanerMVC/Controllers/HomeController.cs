@@ -23,15 +23,22 @@ namespace TimeTrackerPlanerMVC.Controllers
          
         public IActionResult Index(int planid = 0)
         {
-            ViewData["plannedTasksList"] = GetPlannedTasksByProjectId(planid);
-
             var completedTasks = taskService.GetCompletedTaskItems();
              
-            ViewBag.lastTaskDuration = null; 
-            if(completedTasks.completedTasks.Count > 0)
+            ViewBag.lastTaskDuration = null;
+            ViewBag.starttime = "00:00";
+            ViewBag.workid = 0;
+            if (completedTasks.completedTasks.Count > 0)
             {
-                ViewBag.lastTaskDuration = completedTasks.completedTasks.LastOrDefault().duration;
+                var lastTask = completedTasks.completedTasks.LastOrDefault();
+                ViewBag.workid = lastTask.workid;
+                ViewBag.lastTaskDuration = lastTask.duration;
+                planid = lastTask.planid;
+                DateTime starttimems = lastTask.starttime;
+                ViewBag.starttime = starttimems.ToString("HH:mm");
             }
+
+            ViewData["plannedTasksList"] = GetPlannedTasksByProjectId(planid);
 
             return View(completedTasks);
         }

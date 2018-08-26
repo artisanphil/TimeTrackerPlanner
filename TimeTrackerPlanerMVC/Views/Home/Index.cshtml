@@ -6,7 +6,7 @@
 <a href="/AddTask">Add Task / Plan Week</a>
 <h3>Current Task</h3>
 <form method="post">
-    <input type="hidden" id="workid" name="workid" />
+    <input type="hidden" id="workid" name="workid" value="@ViewBag.workid" />
     <input type="hidden" id="starttimems" />
     @if (ViewData["plannedTasksList"] != null)
     {
@@ -17,7 +17,7 @@
         @Html.DisplayText("All tasks completed");
     }
     <br />
-    Starttime: <input type="time" id="starttime" name="starttime" value="00:00">
+    Starttime: <input type="time" id="starttime" name="starttime" value="@ViewBag.starttime">
     Duration: @Html.TextBox("duration", null, new
     { @type = "number", style = "width: 50px;" })
     @if (ViewBag.lastTaskDuration == 0)

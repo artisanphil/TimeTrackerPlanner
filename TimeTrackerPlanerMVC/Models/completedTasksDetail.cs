@@ -5,6 +5,8 @@ namespace TimeTrackerPlanerMVC.Models
 {
     public class completedTasksDetail
     {
+        public int workid { get; set; }
+        public int planid { get; set; }
         public DateTime starttime { get; set; }
         public string taskname { get; set; }
         public string projectname { get; set; }

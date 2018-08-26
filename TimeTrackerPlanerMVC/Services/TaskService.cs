@@ -27,6 +27,8 @@ namespace TimeTrackerPlanerMVC.Services
                                            orderby tasksCompleted.starttime ascending
                                            select new completedTasksDetail
                                            {
+                                               workid = tasksCompleted.workid,
+                                               planid = tasksCompleted.planid,
                                                starttime = tasksCompleted.starttime,
                                                categoryname = myCategories.catname,
                                                projectname = myProjects.projectname,
