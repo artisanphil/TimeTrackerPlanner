@@ -62,7 +62,7 @@ function Start() {
     const now = new Date();
     $("#starttimems").val(now.getTime());
     $("#starttime").val(addZero(now.getHours()) + ":" + addZero(now.getMinutes()));
-    $.post("/Home/Start", { taskid: $("#plannedTasksList").val() },
+    $.post("/Home/Start", { planid: $("#plannedTasksList").val() },
         function(data) {
             console.log(data);
             if(data > 0)

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model completedTasksViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 <br />
@@ -19,7 +20,15 @@
     Starttime: <input type="time" id="starttime" name="starttime" value="00:00">
     Duration: @Html.TextBox("duration", null, new
     { @type = "number", style = "width: 50px;" })
-    <input type="button" id=btnStart onclick="Start(); return false;" value="Start" />  <input type="submit" id=btnStop value="Stop" />
+    @if (ViewBag.lastTaskDuration == 0)
+    {
+        <input type="submit" id=btnStop value="Stop" />
+    }
+    else
+    {
+        <input type="button" id=btnStart onclick="Start(); return false;" value="Start" />
+        <input type="submit" id=btnStop value="Stop" style="display:none;" />
+    }
     <button type="submit">Add manually</button>
 </form>
 <br />

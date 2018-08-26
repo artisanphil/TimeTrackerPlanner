@@ -19,7 +19,8 @@ namespace TimeTrackerPlanerMVC.Services
             completedTasksViewModel completedTasksVM = new completedTasksViewModel();
 
             completedTasksVM.completedTasks = (from tasksCompleted in _context.TasksDoing
-                                           join myTasks in _context.TaskNames on tasksCompleted.taskid equals myTasks.taskid
+                                               join myPlans in _context.TasksPlanned on tasksCompleted.planid equals myPlans.planid
+                                           join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
                                            join myCategories in _context.Categories on myTasks.categoryid equals myCategories.catid
                                            join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
                                            where tasksCompleted.starttime >= DateTime.Today && tasksCompleted.starttime <= DateTime.Today.AddDays(1)

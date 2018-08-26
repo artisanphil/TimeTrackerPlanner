@@ -20,13 +20,18 @@ namespace TimeTrackerPlanerMVC.Controllers
             _context = context;
             this.taskService = taskService;
         }
-
-        public IActionResult Index(int projectid = 0, int taskid = 0)
+         
+        public IActionResult Index(int planid = 0)
         {
-            ViewData["plannedTasksList"] = GetPlannedTasksByProjectId(taskid);
+            ViewData["plannedTasksList"] = GetPlannedTasksByProjectId(planid);
 
             var completedTasks = taskService.GetCompletedTaskItems();
-
+             
+            ViewBag.lastTaskDuration = null; 
+            if(completedTasks.completedTasks.Count > 0)
+            {
+                ViewBag.lastTaskDuration = completedTasks.completedTasks.LastOrDefault().duration;
+            }
 
             return View(completedTasks);
         }
@@ -50,12 +55,12 @@ namespace TimeTrackerPlanerMVC.Controllers
             }
             else
             {
-                var tasksDoingEntity = new TasksDoing() { taskid = plannedTasksList, starttime = startDateTime, duration = duration };
+                var tasksDoingEntity = new TasksDoing() { planid = plannedTasksList, starttime = startDateTime, duration = duration };
                 _context.TasksDoing.Add(tasksDoingEntity);
             }
             _context.SaveChanges();
 
-            return RedirectToAction("Index", new { projectid = ProjectList, taskid = plannedTasksList  });
+            return RedirectToAction("Index", new { planid = plannedTasksList  });
         }
 
         [HttpGet]
@@ -67,9 +72,9 @@ namespace TimeTrackerPlanerMVC.Controllers
             return PartialView("CategoryResults", completedTasks);
         }
 
-        public string Start(int taskid)
+        public string Start(int planid)
         {
-            var workEntity = new TasksDoing() { taskid = taskid, starttime = DateTime.Now };
+            var workEntity = new TasksDoing() { planid = planid, starttime = DateTime.Now };
             _context.TasksDoing.Add(workEntity);
             _context.SaveChanges();
 
@@ -83,7 +88,7 @@ namespace TimeTrackerPlanerMVC.Controllers
         }
 
         [HttpPost]
-        public List<SelectListItem> GetPlannedTasksByProjectId(int taskid = 0)
+        public List<SelectListItem> GetPlannedTasksByProjectId(int planid = 0)
         {
             List<SelectListItem> plannedTasksWeek = (from myPlans in _context.TasksPlanned
                            join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
@@ -94,8 +99,8 @@ namespace TimeTrackerPlanerMVC.Controllers
                             orderby myProjects.projectname ascending, myTasks.taskname ascending
                             select new SelectListItem
                             {
-                                Value = myPlans.taskid.ToString(),
-                Text = myProjects.projectname + ": " + myTasks.taskname + " (" + myCategories.catname + ")" 
+                                Value = myPlans.planid.ToString(),
+                                Text = myProjects.projectname + ": " + myTasks.taskname + " (" + myCategories.catname + ")" 
                            }).ToList();
 
             plannedTasksWeek.Insert(0, new SelectListItem()
@@ -104,9 +109,9 @@ namespace TimeTrackerPlanerMVC.Controllers
                 Value = "0"
             });
 
-            if (taskid > 0)
+            if (planid > 0)
             {
-                var selected = plannedTasksWeek.Where(x => x.Value == taskid.ToString()).First();
+                var selected = plannedTasksWeek.Where(x => x.Value == planid.ToString()).First();
                 selected.Selected = true;
             }
 
