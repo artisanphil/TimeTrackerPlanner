@@ -6,7 +6,7 @@
     <th>Task</th>
     <th>Duration</th>
 </thead>
-@foreach(var item in Model.completedTasks)
+@foreach (var item in Model.completedTasks)
 {
     <tr>
         <td>@item.starttime</td>
@@ -15,4 +15,15 @@
         <td>@item.duration min.</td>
     </tr>
 }
+<tr>
+    <td colspan="3">Total Time:</td>
+    <td>
+        @Model.completedTasks.Sum(i => i.duration) min.
+        <br>
+        @{
+            double hours = (double) @Model.completedTasks.Sum(i => i.duration) / 60;
+        }
+        @String.Format("{0:0.0}", hours) hours
+    </td>
+</tr>
 </table>

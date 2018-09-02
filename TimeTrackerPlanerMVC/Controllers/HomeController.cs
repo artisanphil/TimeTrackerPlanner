@@ -31,11 +31,14 @@ namespace TimeTrackerPlanerMVC.Controllers
             if (completedTasks.completedTasks.Count > 0)
             {
                 var lastTask = completedTasks.completedTasks.LastOrDefault();
-                ViewBag.workid = lastTask.workid;
-                ViewBag.lastTaskDuration = lastTask.duration;
-                planid = lastTask.planid;
-                DateTime starttimems = lastTask.starttime;
-                ViewBag.starttime = starttimems.ToString("HH:mm");
+                if (lastTask.duration == 0)
+                {
+                    ViewBag.workid = lastTask.workid;
+                    ViewBag.lastTaskDuration = lastTask.duration;
+                    planid = lastTask.planid;
+                    DateTime starttimems = lastTask.starttime;
+                    ViewBag.starttime = starttimems.ToString("HH:mm");
+                }
             }
 
             ViewData["plannedTasksList"] = GetPlannedTasksByProjectId(planid);

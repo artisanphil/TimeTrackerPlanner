@@ -5,6 +5,7 @@
         string week = "";
         int estimateSum = 0;
         int timeSpentSum = 0;
+        int actualEstimationSum = 0;
     }
     @foreach (var item in ViewData["plannedTasks"] as List<plannedTasksDetail>)
     {
@@ -19,6 +20,7 @@
                 </tr>
                 estimateSum = 0;
                 timeSpentSum = 0;
+                actualEstimationSum = 0;
             }
             week = @item.weekPlanned.ToString("MM/dd/yyyy");
             <thead>
@@ -40,11 +42,23 @@
 
         estimateSum += item.estimation;
         timeSpentSum += item.timeSpent;
+        if (item.completed == true)
+        {
+            actualEstimationSum += item.timeSpent;
+        }
+        else
+        {
+            actualEstimationSum += item.estimation;
+        }
     }
     <tr>
-        <td></td>
+        <td>Total:</td>
         <td>@estimateSum.ToString() min.</td>
         <td>@timeSpentSum.ToString() min.</td>
+    </tr>
+    <tr>
+        <td>Actual Estimation:</td>
+        <td colspan="2" align="center">@actualEstimationSum.ToString() min.</td>
     </tr>
    </table>
     <form method="post">
