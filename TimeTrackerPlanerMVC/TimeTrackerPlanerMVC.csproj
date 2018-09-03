@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="2.8.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.3" />        
+    <PackageReference Include="MySql.Data.Entity" Version="6.10.8" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
@@ -26,6 +27,12 @@
     <Content Remove="Views\Home\_TasksCompleted.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="ScaffoldingReadme.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Views\Home\_TasksCompleted.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Data\IdentityContext.cs" />
   </ItemGroup>
 </Project>
