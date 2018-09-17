@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,6 +25,9 @@ namespace TimeTrackerPlanerMVC.Controllers
         // GET: /<controller>/
         public IActionResult Index(int planid = 0)
         {
+            //Console.WriteLine("USERID: " + this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            //Console.WriteLine("USER:" + User.Identity.Name);
+
             plannedTasks = from myPlans in _context.TasksPlanned
                            join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
                             join myCategories in _context.Categories on myTasks.categoryid equals myCategories.catid
@@ -172,6 +176,7 @@ namespace TimeTrackerPlanerMVC.Controllers
 
             return planid;
         }
+
 
     }
 }

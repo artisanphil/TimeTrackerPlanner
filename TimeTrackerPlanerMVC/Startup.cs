@@ -41,12 +41,6 @@ namespace TimeTrackerPlanerMVC
             services.AddDbContext<TasksContext>(options =>
             options.UseMySql(_connection));
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySql(_connection));
-
-            services.AddDefaultIdentity<IdentityUser>()
-                            .AddEntityFrameworkStores<ApplicationDbContext>();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -65,8 +59,6 @@ namespace TimeTrackerPlanerMVC
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

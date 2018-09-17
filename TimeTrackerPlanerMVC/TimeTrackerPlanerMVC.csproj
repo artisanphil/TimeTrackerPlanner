@@ -25,6 +25,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Home\_TasksCompleted.cshtml" />
+    <Content Remove="Views\Account\Register.cshtml" />
+    <Content Remove="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="ScaffoldingReadme.txt" />
@@ -34,5 +36,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Data\IdentityContext.cs" />
+    <Compile Remove="Areas\Identity\Data\ApplicationDbContext.cs" />
+    <Compile Remove="Areas\Identity\IdentityHostingStartup.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20180903130546_CreateIdentitySchema.Designer.cs" />
+    <Compile Remove="Migrations\ApplicationDb\20180903130546_CreateIdentitySchema.cs" />
   </ItemGroup>
 </Project>
