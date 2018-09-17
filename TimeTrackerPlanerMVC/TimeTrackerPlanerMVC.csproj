@@ -22,6 +22,7 @@
   <ItemGroup>
     <Folder Include="Views\AddTask\" />
     <Folder Include="Services\" />
+    <Folder Include="Views\Statistics\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Home\_TasksCompleted.cshtml" />
