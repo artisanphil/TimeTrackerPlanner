@@ -41,6 +41,9 @@ namespace TimeTrackerPlanerMVC
             services.AddDbContext<TasksContext>(options =>
             options.UseMySql(_connection));
 
+            services.AddDbContext<ProjectContext>(options =>
+                        options.UseMySql(_connection));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

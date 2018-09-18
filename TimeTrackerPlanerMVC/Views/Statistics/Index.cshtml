@@ -1,1 +1,7 @@
 ﻿<h1>Statistics</h1>
+@foreach (var item in ViewData["thisWeeksProjects"] as List<projectTime>)
+{
+    <div>@item.projectname.ToString()</div>
+    <div>@item.timeSpent.ToString()</div>
+    <br />
+}

@@ -12,4 +12,5 @@ namespace TimeTrackerPlanerMVC.Models
         public int timeSpent { get; set;  }
         public bool completed { get; set;  }
     }
+
 }
