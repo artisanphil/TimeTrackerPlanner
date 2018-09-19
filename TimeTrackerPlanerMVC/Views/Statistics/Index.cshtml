@@ -1,7 +1,8 @@
 ﻿<h1>Statistics</h1>
 @foreach (var item in ViewData["thisWeeksProjects"] as List<projectTime>)
 {
+    double percentage = ((double)@item.timeSpent / (int)@ViewData["totalTime"]) * 100;
     <div>@item.projectname.ToString()</div>
-    <div>@item.timeSpent.ToString()</div>
+    <div>@item.timeSpent.ToString() (@percentage.ToString("0.0")%)</div>
     <br />
 }

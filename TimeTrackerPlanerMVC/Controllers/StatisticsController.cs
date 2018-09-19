@@ -31,15 +31,11 @@ namespace TimeTrackerPlanerMVC.Controllers
             WHERE TasksPlanned.planneddate >= '2018-09-16 00:00:00'
             GROUP BY Projects.projectid";
 
-            var thisWeeksProjects = _context.projectTimeSpent.FromSql(sql).ToList();
+            var thisWeeksProjects = _context.projectTimeSpent.FromSql(sql).ToList().OrderByDescending(t => t.timeSpent).ToList();
+            var totalTime = thisWeeksProjects.Sum(t => t.timeSpent);
 
-            /*
-            foreach(var project in thisWeeksProjects)
-            {
-                Console.WriteLine("project: " + project.projectname + " " + project.timeSpent);
-            }
-            */
             ViewData["thisWeeksProjects"] = thisWeeksProjects;
+            ViewData["totalTime"] = totalTime;
 
             return View();
         }
