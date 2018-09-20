@@ -1,8 +1,102 @@
 ﻿<h1>Statistics</h1>
-@foreach (var item in ViewData["thisWeeksProjects"] as List<projectTime>)
-{
-    double percentage = ((double)@item.timeSpent / (int)@ViewData["totalTime"]) * 100;
-    <div>@item.projectname.ToString()</div>
-    <div>@item.timeSpent.ToString() (@percentage.ToString("0.0")%)</div>
-    <br />
+<div style="width:100%;">
+    <div style="float:left; width:50%;">
+        <br />
+        @{
+        string chartData = "";
+        string chartLabels = "";
+        foreach (var item in ViewData["thisWeeksProjects"] as List<projectTime>)
+        {
+            double percentage = ((double)@item.timeSpent / (int)@ViewData["totalTime"]) * 100;
+            double circleSegment = ((double)@item.timeSpent / (int)@ViewData["totalTime"]) * 360;
+            double timeSpentHours = (double)@item.timeSpent / 60;
+            <div>@item.projectname.ToString(): @timeSpentHours.ToString("0.0") hours (@percentage.ToString("0.0")%)</div>
+            <br />
+            chartData += circleSegment.ToString() + ",";
+            chartLabels += "\"" + item.projectname.ToString() + "\",";
+        }
+        chartData = chartData.Remove(chartData.Length - 1);
+        chartLabels = chartLabels.Remove(chartLabels.Length - 1);
+        double totalHours = Convert.ToDouble(@ViewData["totalTime"]) / 60;
+        }
+        <strong>Total: @totalHours.ToString("0.0") hours</strong>
+    </div>
+    <div style="float:right; width:50%;">
+        <canvas id="piechart" width="400" height="400"></canvas>
+    </div>
+</div>
+<br style="clear:both;" />
+
+<script>
+var data = [@chartData];
+var labels = [@Html.Raw(chartLabels)];
+var colors = ['#E3F2FD', '#BBDEFB', '#90CAF9', '#64B5F6',
+                '#42A5F5', '#2196F3', '#1E88E5', '#1976D2',
+                '#1565C0', '#0D47A1'];
+
+var textcolors = ['#000000', '#000000', '#000000', '#000000', '#000000',
+                  '#000000', '#ffffff', '#ffffff', '#ffffff', '#ffffff',
+                  '#ffffff', '#ffffff']
+
+function drawSegment(canvas, context, i) {
+    context.save();
+    var centerX = Math.floor(canvas.width / 2);
+    var centerY = Math.floor(canvas.height / 2);
+    radius = Math.floor(canvas.width / 2);
+
+    var startingAngle = degreesToRadians(sumTo(data, i));
+    var arcSize = degreesToRadians(data[i]);
+    var endingAngle = startingAngle + arcSize;
+
+    context.beginPath();
+    context.moveTo(centerX, centerY);
+    context.arc(centerX, centerY, radius,
+                startingAngle, endingAngle, false);
+    context.closePath();
+
+    context.fillStyle = colors[i];
+    context.fill();
+
+    context.restore();
+
+    drawSegmentLabel(canvas, context, i);
 }
+
+function degreesToRadians(degrees) {
+    return (degrees * Math.PI)/180;
+}
+function sumTo(a, i) {
+    var sum = 0;
+    for (var j = 0; j < i; j++) {
+      sum += a[j];
+    }
+    return sum;
+}
+
+function drawSegmentLabel(canvas, context, i) {
+   context.save();
+   var x = Math.floor(canvas.width / 2);
+   var y = Math.floor(canvas.height / 2);
+   var angle = degreesToRadians(sumTo(data, i));
+
+   context.translate(x, y);
+   context.rotate(angle);
+   var dx = Math.floor(canvas.width * 0.5) - 10;
+   var dy = Math.floor(canvas.height * 0.05);
+
+   context.textAlign = "right";
+   var fontSize = Math.floor(canvas.height / 30);
+   context.font = fontSize + "pt Helvetica";
+    console.log(textcolors[i])
+   context.fillStyle = textcolors[i];
+   context.fillText(labels[i], dx, dy);
+
+   context.restore();
+}
+
+canvas = document.getElementById("piechart");
+var context = canvas.getContext("2d");
+for (var i = 0; i < data.length; i++) {
+    drawSegment(canvas, context, i);
+}
+</script>
