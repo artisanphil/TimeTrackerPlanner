@@ -20,24 +20,29 @@ namespace TimeTrackerPlanerMVC.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(DateTime? dateFrom = null, DateTime? dateUntil = null)
         {
-            string sql = @"SELECT Projects.projectid, Projects.projectname, SUM(TasksDoing.duration) AS timeSpent 
-            FROM TasksPlanned 
-            INNER JOIN TasksDoing ON TasksDoing.planid = TasksPlanned.planid
-            INNER JOIN TaskNames ON TaskNames.taskid = TasksPlanned.taskid
-            INNER JOIN Categories ON Categories.catid = TaskNames.categoryid
-            INNER JOIN Projects ON Projects.projectid = Categories.projectid
-            WHERE TasksPlanned.planneddate >= '2018-09-16 00:00:00'
-            GROUP BY Projects.projectid";
+            dateFrom = dateFrom ?? DateTime.Now.AddDays(-7);
+            dateUntil = dateUntil ?? DateTime.Now;
 
-            var thisWeeksProjects = _context.projectTimeSpent.FromSql(sql).ToList().OrderByDescending(t => t.timeSpent).ToList();
+            var thisWeeksProjects = _context.GetProjectsTimeSpent(dateFrom, dateUntil).OrderByDescending(t => t.timeSpent).ToList();
             var totalTime = thisWeeksProjects.Sum(t => t.timeSpent);
+
+            DateTime dateFromDate = (DateTime) dateFrom;
+            ViewData["dateFrom"] = dateFromDate.ToString("yyyy-MM-dd");
+            DateTime dateUntilDate = (DateTime)dateUntil;
+            ViewData["dateUntil"] = dateUntilDate.ToString("yyyy-MM-dd");
 
             ViewData["thisWeeksProjects"] = thisWeeksProjects;
             ViewData["totalTime"] = totalTime;
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(DateTime dateFrom, DateTime dateUntil)
+        {
+            return RedirectToAction("Index", new { dateFrom, dateUntil });
         }
     }
 }

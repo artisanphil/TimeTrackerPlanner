@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -43,6 +44,8 @@ namespace TimeTrackerPlanerMVC
 
             services.AddDbContext<ProjectContext>(options =>
                         options.UseMySql(_connection));
+
+            services.AddTransient<IDbConnection>(myDBConnection => new MySqlConnection(_connection));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
