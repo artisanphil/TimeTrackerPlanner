@@ -6,6 +6,7 @@
         int estimateSum = 0;
         int timeSpentSum = 0;
         int actualEstimationSum = 0;
+        double percentageDone = 0;
     }
     @foreach (var item in ViewData["plannedTasks"] as List<plannedTasksDetail>)
     {
@@ -51,6 +52,12 @@
             actualEstimationSum += item.estimation;
         }
     }
+    @{ 
+        if (timeSpentSum > 0)
+        {
+            percentageDone = ((double)timeSpentSum / actualEstimationSum);
+        }
+    }
     <tr>
         <td>Total:</td>
         <td>@estimateSum.ToString() min.</td>
@@ -58,7 +65,7 @@
     </tr>
     <tr>
         <td>Actual Estimation:</td>
-        <td colspan="2" align="center">@actualEstimationSum.ToString() min.</td>
+        <td colspan="2" align="center">@actualEstimationSum.ToString() min. (@String.Format("{0:P1}", percentageDone) done) </td>
     </tr>
    </table>
     <form method="post">
