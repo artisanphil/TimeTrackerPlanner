@@ -34,7 +34,7 @@ class ToggleStartStop extends Component {
       {
         taskItems = JSON.parse(localStorage.getItem("tasks"));
       }
-      taskItems.push({"planid": planid, "starttime": now.getTime(), "duration": 0});
+      taskItems.push({"planid": planid, "starttime": now.toISOString(), "duration": 0});
       localStorage.setItem('tasks', JSON.stringify(taskItems));
     }
   
