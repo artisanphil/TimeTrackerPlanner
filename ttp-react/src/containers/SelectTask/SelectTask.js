@@ -58,7 +58,7 @@ class SelectTask extends Component {
                     </option>
                 )}
                 </select>
-                <ToggleStartStop selectedTask={this.state.selectedTask} />
+                <ToggleStartStop selectedTask={this.state.selectedTask} addItem={this.props.addItem} />
             </div>
         );    
     }

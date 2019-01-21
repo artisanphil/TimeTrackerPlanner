@@ -19,19 +19,19 @@ class SyncTasks extends Component {
         console.log(API + 'plannedtasks');
         console.log(tasks);
         fetch(API + 'plannedtasks',
-            {
-                method: 'POST',
-                headers: {
-                     'Accept': 'application/json',
-                     'Content-Type': 'application/json'
-                },
-                body: tasks
-            }).then(function(response) {
-              console.log(response);
-            })
-            .catch(function(error) {
-              console.log(error);
-          });   
+        {
+            method: 'POST',
+            headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+            },
+            body: tasks
+        }).then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+      });   
     }
 
     render() {

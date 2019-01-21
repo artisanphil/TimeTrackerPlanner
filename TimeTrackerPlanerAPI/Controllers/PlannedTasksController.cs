@@ -42,9 +42,10 @@ namespace TimeTrackerPlanerAPI.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] allCompletedTasks values)
         {
-            Console.WriteLine("RECEIVED planid: " + values.taskDone[0].planid);
+            //Console.WriteLine("RECEIVED planid: " + values.taskDone[0].planid);
 
             _context.TasksDoing.Add(values.taskDone[0]);
+
             _context.SaveChanges();
 
             return Ok(values);

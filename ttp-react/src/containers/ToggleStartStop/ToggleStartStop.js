@@ -49,8 +49,10 @@ class ToggleStartStop extends Component {
       var diffMs = now.getTime() - localStorage.getItem('starttime');
       var duration = Math.round(((diffMs % 86400000) % 3600000) / 60000);
       taskItems[(taskItems.length - 1)]["duration"] = duration;
-      localStorage.setItem('tasks', JSON.stringify(taskItems));      
+      localStorage.setItem('tasks', JSON.stringify(taskItems));   
+      this.props.addItem(taskItems);
     }
+
     render() {
       return (
         <button onClick={this.handleClick} className="StartStopButton">
