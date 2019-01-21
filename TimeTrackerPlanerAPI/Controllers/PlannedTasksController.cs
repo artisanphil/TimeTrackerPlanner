@@ -44,7 +44,11 @@ namespace TimeTrackerPlanerAPI.Controllers
         {
             //Console.WriteLine("RECEIVED planid: " + values.taskDone[0].planid);
 
-            _context.TasksDoing.Add(values.taskDone[0]);
+            foreach (var task in values.taskDone)
+            {
+                //_context.TasksDoing.Add(values.taskDone[0]);
+                _context.TasksDoing.Add(task);
+            }
 
             _context.SaveChanges();
 

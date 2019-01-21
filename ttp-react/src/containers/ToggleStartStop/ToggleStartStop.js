@@ -28,13 +28,15 @@ class ToggleStartStop extends Component {
     recordStarttime(planid)
     {
       const now = new Date();
+      var isoDate = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString();
+
       localStorage.setItem('starttime', now.getTime());
       var taskItems = [];
       if(localStorage.getItem("tasks"))
       {
         taskItems = JSON.parse(localStorage.getItem("tasks"));
       }
-      taskItems.push({"planid": planid, "starttime": now.toISOString(), "duration": 0});
+      taskItems.push({"planid": planid, "starttime": isoDate, "duration": 0});
       localStorage.setItem('tasks', JSON.stringify(taskItems));
     }
   
