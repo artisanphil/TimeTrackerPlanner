@@ -5,6 +5,10 @@ const API = 'https://localhost:5001/api/';
 class SyncTasks extends Component {
     constructor(props) {
       super(props);
+
+      this.state = {
+        message: ''
+      };      
   
       // This binding is necessary to make `this` work in the callback
       this.handleClick = this.handleClick.bind(this);
@@ -18,6 +22,8 @@ class SyncTasks extends Component {
 
         console.log(API + 'plannedtasks');
         console.log(tasks);
+        let self = this;
+        
         fetch(API + 'plannedtasks',
         {
             method: 'POST',
@@ -28,6 +34,9 @@ class SyncTasks extends Component {
             body: tasks
         }).then(function(response) {
           console.log(response);
+          self.setState({
+            message: 'Data successfully synced!'
+          });
         })
         .catch(function(error) {
           console.log(error);
@@ -36,9 +45,12 @@ class SyncTasks extends Component {
 
     render() {
       return (
-        <button onClick={this.handleClick}>
-            Sync 
-        </button>
+        <div>
+          <button onClick={this.handleClick}>
+              Sync 
+          </button>
+          <div>{ this.state.message }</div>
+        </div>
       );
     }
   }
