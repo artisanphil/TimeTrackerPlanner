@@ -18,11 +18,15 @@ class ListTasks extends Component {
         
         //var tasks = JSON.parse(localStorage.getItem("tasks"));
         console.log("get taskdetails");
-        console.log(this.props.todoItems);
         var tasks = this.props.todoItems;
-        if(!tasks)
+        if(!tasks || tasks.length == 0)
         {
-            return false;
+            tasks = JSON.parse(localStorage.getItem("tasks"));
+            console.log(tasks);
+            if(!tasks)
+            {
+                return false;
+            }
         }
         var plannedTasks = JSON.parse(localStorage.getItem("plannedTasks"));
         let taskdetail = [];

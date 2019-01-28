@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class tasksdoing extends Model
+class projects extends Model
 {
-    protected $table = 'TasksDoing';
 }

@@ -5,12 +5,27 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 use App\tasksdoing;
+use App\tasksplanned;
 
 class AverageTime extends Controller
 {
-    public function index(tasksdoing $tasksdoing)
+    public function index()
     {
-        //DB::enableQueryLog();
+        /*
+        $tasksplanned = tasksplanned::with('tasknames', 'tasknames.categories', 'tasknames.categories.projects')
+        ->whereDate('planneddate', '>=', '2018-12-30')
+        ->groupBy('planid', 'planneddate')
+        ->get();
+
+        //$tasksplanned->students->sortBy('whateverProperty');
+        
+        //$taskscompleted = $tasksplanned->tasksdoing->get();
+
+        echo $tasksplanned;
+
+        echo "<hr>";
+
+        */
 
         $tasks = DB::table('tasksdoing')
         ->join('tasksplanned', 'tasksplanned.planid', '=', 'tasksdoing.planid')
