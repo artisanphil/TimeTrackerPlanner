@@ -12,9 +12,14 @@ class AverageTime extends Controller
     public function index()
     {
         /*
+                
         $tasksplanned = tasksplanned::with('tasknames', 'tasknames.categories', 'tasknames.categories.projects')
+        ->join('tasknames', 'tasknames.taskid', '=', 'tasksplanned.taskid')
+        ->join('categories', 'categories.catid', '=', 'tasknames.categoryid')
+        ->join('projects', 'projects.projectid', '=', 'categories.projectid')
         ->whereDate('planneddate', '>=', '2018-12-30')
         ->groupBy('planid', 'planneddate')
+        ->orderby('projects.projectname', 'asc')
         ->get();
 
         //$tasksplanned->students->sortBy('whateverProperty');
@@ -22,10 +27,9 @@ class AverageTime extends Controller
         //$taskscompleted = $tasksplanned->tasksdoing->get();
 
         echo $tasksplanned;
+        */
 
         echo "<hr>";
-
-        */
 
         $tasks = DB::table('tasksdoing')
         ->join('tasksplanned', 'tasksplanned.planid', '=', 'tasksdoing.planid')

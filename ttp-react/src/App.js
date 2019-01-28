@@ -24,7 +24,7 @@ class App extends Component {
       <div className="mainContent">
         <SelectTask addItem={this.addItem} />
         <ListTasks todoItems={this.state.todoItems} />
-        <SyncTasks />
+        <SyncTasks addItem={this.addItem} />
       </div>
     );
   }  

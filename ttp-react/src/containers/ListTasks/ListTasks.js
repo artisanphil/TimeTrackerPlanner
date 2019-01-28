@@ -16,7 +16,6 @@ class ListTasks extends Component {
 
     taskdetails = () => {
         
-        //var tasks = JSON.parse(localStorage.getItem("tasks"));
         console.log("get taskdetails");
         var tasks = this.props.todoItems;
         if(!tasks || tasks.length == 0)

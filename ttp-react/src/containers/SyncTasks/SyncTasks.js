@@ -34,6 +34,9 @@ class SyncTasks extends Component {
             body: tasks
         }).then(function(response) {
           console.log(response);
+          localStorage.removeItem("tasks");
+          //var taskItems = [];
+          self.props.addItem("");
           self.setState({
             message: 'Data successfully synced!'
           });
