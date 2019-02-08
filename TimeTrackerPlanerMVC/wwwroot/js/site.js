@@ -30,6 +30,7 @@ function setCompleted(planid, completed) {
         });       
 }
 
+/*
 function GetTask(_categoryid) {
     $.ajax({
         url: "/AddTask/GetTasksByCategoryId/",
@@ -41,13 +42,14 @@ function GetTask(_categoryid) {
             for (var x = 0; x < data.length; x++) {
                 markup += "<option value=" + data[x]['value'] + ">" + data[x]['text'] + "</option>";
             }
-            $("#TaskList").html(markup).show();
+            $("#TaskDescription").html(markup).show();
         },
         error: function (reponse) {
             alert("error : " + reponse);
         }
     });
 }
+*/
 
 function addZero(i) {
     if (i < 10) {

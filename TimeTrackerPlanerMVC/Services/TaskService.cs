@@ -20,8 +20,7 @@ namespace TimeTrackerPlanerMVC.Services
 
             completedTasksVM.completedTasks = (from tasksCompleted in _context.TasksDoing
                                                join myPlans in _context.TasksPlanned on tasksCompleted.planid equals myPlans.planid
-                                           join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
-                                           join myCategories in _context.Categories on myTasks.categoryid equals myCategories.catid
+                                           join myCategories in _context.Categories on myPlans.catid equals myCategories.catid
                                            join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
                                            where tasksCompleted.starttime >= DateTime.Today && tasksCompleted.starttime <= DateTime.Today.AddDays(1)
                                            orderby tasksCompleted.starttime ascending
@@ -32,9 +31,11 @@ namespace TimeTrackerPlanerMVC.Services
                                                starttime = tasksCompleted.starttime,
                                                categoryname = myCategories.catname,
                                                projectname = myProjects.projectname,
-                                               taskname = myTasks.taskname,
+                                               taskdescription = myPlans.taskdescription,
                                                duration = tasksCompleted.duration
                                            }).ToList();
+
+            Console.WriteLine(completedTasksVM);
 
             return completedTasksVM;
 

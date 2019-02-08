@@ -12,7 +12,5 @@ namespace TimeTrackerPlanerMVC.Models
         public int planid { get; set;  }
         public DateTime starttime { get; set; }
         public int duration { get; set; }
-
-        public virtual ICollection<TasksPlanned> PlannedTasks { get; set; }
     }
 }

@@ -29,15 +29,14 @@ namespace TimeTrackerPlanerMVC.Controllers
             //Console.WriteLine("USER:" + User.Identity.Name);
 
             plannedTasks = from myPlans in _context.TasksPlanned
-                           join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
-                            join myCategories in _context.Categories on myTasks.categoryid equals myCategories.catid
+                            join myCategories in _context.Categories on myPlans.catid equals myCategories.catid
                            join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
                             where myPlans.planneddate >= DateTimeExtensions.FirstDayOfWeek(DateTime.Now) 
                            orderby myPlans.planneddate descending, myProjects.projectname ascending
                            select new plannedTasksDetail { 
                                 planid = myPlans.planid,
                                 weekPlanned = myPlans.planneddate,
-                                taskname = myTasks.taskname,
+                                taskdescription = (myPlans.taskdescription.Length > 20) ? string.Concat(myPlans.taskdescription.Substring(0, 20), "...") : myPlans.taskdescription,
                                 catname = myCategories.catname,
                                 projectname = myProjects.projectname,
                                 estimation = myPlans.estimation,
@@ -97,6 +96,7 @@ namespace TimeTrackerPlanerMVC.Controllers
             return CategoryList;
         }
 
+        /*
         [HttpPost]
         public List<SelectListItem> GetTasksByCategoryId(int categoryid)
         {
@@ -117,10 +117,11 @@ namespace TimeTrackerPlanerMVC.Controllers
 
             return TaskList;
         }
+        */
 
 
         [HttpPost]
-        public IActionResult Index(int TaskList, int TimeEstimation, int WeekList)
+        public IActionResult Index(int CategoryList, string TaskDescription, int TimeEstimation, int WeekList)
         {
             DateTime weekDate = DateTime.Now;
             if(WeekList >= 1)
@@ -130,7 +131,7 @@ namespace TimeTrackerPlanerMVC.Controllers
             DateTime datePlanned = DateTimeExtensions.FirstDayOfWeek(weekDate);
 
 
-            var tasksPlannedEntity = new TasksPlanned() { taskid = TaskList, estimation = TimeEstimation, planneddate = datePlanned };
+            var tasksPlannedEntity = new TasksPlanned() { catid = CategoryList, taskdescription = TaskDescription, estimation = TimeEstimation, planneddate = datePlanned };
             _context.TasksPlanned.Add(tasksPlannedEntity);
             _context.SaveChanges();
 

@@ -36,7 +36,7 @@
             </thead>
         }
         <tr>
-            <td><input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid, @item.completed.ToString().ToLower());" /> <a href="?planid=@item.planid"><strong>@item.projectname:</strong> @item.taskname (@item.catname)</a></td>
+            <td><input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid, @item.completed.ToString().ToLower());" /> <a href="?planid=@item.planid"><strong>@item.projectname:</strong> @item.taskdescription (@item.catname)</a></td>
             <td>@item.estimation.ToString() min.</td>
             <td>@item.timeSpent.ToString() min.</td>
         </tr>
@@ -80,10 +80,10 @@
                 @Html.DropDownList("ProjectList", null, new { @onchange = "javascript:GetCategory(this.value);" })
             </div>
             <div class="box b2">
-                <select id="CategoryList" name="CategoryList" onchange="javascript:GetTask(this.value);"></select>
+                <select id="CategoryList" name="CategoryList"></select>
             </div>
             <div class="box b3">
-                <select id="TaskList" name="TaskList"></select>
+                @Html.TextArea("TaskDescription", new { @rows = 5 })
             </div>
             <div class="box b4">
                 @Html.TextBox("TimeEstimation", null, new { @type = "number", style = "width: 100px;" })
@@ -101,8 +101,7 @@
                 <nobr><a href="#" onclick="AddItemType('Category'); return false;">Add Category</a></nobr>
             </div>
             <div class="box c3">
-                @Html.TextBox("TaskName")
-                <nobr><a href="#" onclick="AddItemType('Task'); return false;">Add Task</a></nobr>
+
             </div>
             <div class="box c4"></div>
             <div class="box c5"></div>

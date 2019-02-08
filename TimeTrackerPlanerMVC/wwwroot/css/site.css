@@ -41,6 +41,9 @@ body {
     font-size: 14px;
 }
 
+.box.b3 {
+    grid-row-end: span 3;
+}
 
 table#plannedTasks tr:nth-child(even) {
     background-color: #eee;

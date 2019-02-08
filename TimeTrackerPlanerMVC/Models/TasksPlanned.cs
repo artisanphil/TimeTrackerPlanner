@@ -7,9 +7,10 @@ namespace TimeTrackerPlanerMVC.Models
     {
         [Key]
         public int planid { get; set; }
-        public int taskid { get; set; }
+        public int catid { get; set; }
+        public string taskdescription { get; set;  }
         public int estimation { get; set; }
         public DateTime planneddate { get; set;  }
         public bool completed { get; set;  }
-    }
+    } 
 }

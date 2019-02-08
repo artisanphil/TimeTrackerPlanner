@@ -36,8 +36,7 @@ namespace TimeTrackerPlanerMVC.Models
             string sql = $@"SELECT Projects.projectid, Projects.projectname, SUM(TasksDoing.duration) AS timeSpent 
             FROM TasksPlanned 
             INNER JOIN TasksDoing ON TasksDoing.planid = TasksPlanned.planid
-            INNER JOIN TaskNames ON TaskNames.taskid = TasksPlanned.taskid
-            INNER JOIN Categories ON Categories.catid = TaskNames.categoryid
+            INNER JOIN Categories ON Categories.catid = TasksPlanned.catid
             INNER JOIN Projects ON Projects.projectid = Categories.projectid
             WHERE TasksDoing.starttime >= '{starttime}' AND TasksDoing.starttime <= '{endtime}'
             GROUP BY Projects.projectid";

@@ -8,7 +8,7 @@ namespace TimeTrackerPlanerMVC.Models
         public int workid { get; set; }
         public int planid { get; set; }
         public DateTime starttime { get; set; }
-        public string taskname { get; set; }
+        public string taskdescription { get; set; }
         public string projectname { get; set; }
         public string categoryname { get; set; }
         public int duration { get; set; }

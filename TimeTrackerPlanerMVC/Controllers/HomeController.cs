@@ -101,16 +101,18 @@ namespace TimeTrackerPlanerMVC.Controllers
         public List<SelectListItem> GetPlannedTasksByProjectId(int planid = 0)
         {
             List<SelectListItem> plannedTasksWeek = (from myPlans in _context.TasksPlanned
-                           join myTasks in _context.TaskNames on myPlans.taskid equals myTasks.taskid
-                             join myCategories in _context.Categories on myTasks.categoryid equals myCategories.catid
+                             join myCategories in _context.Categories on myPlans.catid equals myCategories.catid
                              join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
                            where myPlans.planneddate == DateTimeExtensions.FirstDayOfWeek(DateTime.Now) 
                                                      && myPlans.completed == false
-                            orderby myProjects.projectname ascending, myTasks.taskname ascending
+                            orderby myProjects.projectname ascending, myPlans.taskdescription ascending
                             select new SelectListItem
                             {
                                 Value = myPlans.planid.ToString(),
-                                Text = myProjects.projectname + ": " + myTasks.taskname + " (" + myCategories.catname + ")" 
+
+                                Text = myProjects.projectname + ": " +
+                                ((myPlans.taskdescription.Length > 20) ? string.Concat(myPlans.taskdescription.Substring(0, 20), "...") : myPlans.taskdescription) +
+                                " (" + myCategories.catname + ")" 
                            }).ToList();
 
             plannedTasksWeek.Insert(0, new SelectListItem()
