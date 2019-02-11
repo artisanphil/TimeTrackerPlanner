@@ -36,7 +36,10 @@
             </thead>
         }
         <tr>
-            <td><input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid, @item.completed.ToString().ToLower());" /> <a href="?planid=@item.planid"><strong>@item.projectname:</strong> @item.taskdescription (@item.catname)</a></td>
+            <td>
+                <input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid, @item.completed.ToString().ToLower());" /> 
+                <a href="TaskDetail?planid=@item.planid"><strong>@item.projectname:</strong> @item.taskdescription (@item.catname)</a>
+            </td>
             <td>@item.estimation.ToString() min.</td>
             <td>@item.timeSpent.ToString() min.</td>
         </tr>

@@ -36,7 +36,7 @@ namespace TimeTrackerPlanerMVC.Controllers
                            select new plannedTasksDetail { 
                                 planid = myPlans.planid,
                                 weekPlanned = myPlans.planneddate,
-                                taskdescription = (myPlans.taskdescription.Length > 20) ? string.Concat(myPlans.taskdescription.Substring(0, 20), "...") : myPlans.taskdescription,
+                                taskdescription = (myPlans.taskdescription.Length > 50) ? string.Concat(myPlans.taskdescription.Substring(0, 50), "...") : myPlans.taskdescription,
                                 catname = myCategories.catname,
                                 projectname = myProjects.projectname,
                                 estimation = myPlans.estimation,
@@ -95,29 +95,6 @@ namespace TimeTrackerPlanerMVC.Controllers
 
             return CategoryList;
         }
-
-        /*
-        [HttpPost]
-        public List<SelectListItem> GetTasksByCategoryId(int categoryid)
-        {
-            List<SelectListItem> TaskList = (from p in _context.TaskNames.AsEnumerable()
-                                                 where p.categoryid == categoryid
-                                                 select new SelectListItem
-                                                 {
-                                                     Value = p.taskid.ToString(),
-                                                     Text = p.taskname
-                                                 }
-                                                ).ToList();
-
-            TaskList.Insert(0, new SelectListItem()
-            {
-                Text = "Select Task",
-                Value = "0"
-            });
-
-            return TaskList;
-        }
-        */
 
 
         [HttpPost]

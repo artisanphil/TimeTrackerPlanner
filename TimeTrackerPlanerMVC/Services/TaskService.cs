@@ -31,7 +31,7 @@ namespace TimeTrackerPlanerMVC.Services
                                                starttime = tasksCompleted.starttime,
                                                categoryname = myCategories.catname,
                                                projectname = myProjects.projectname,
-                                               taskdescription = myPlans.taskdescription,
+                                               taskdescription = (myPlans.taskdescription.Length > 30) ? string.Concat(myPlans.taskdescription.Substring(0, 30), "...") : myPlans.taskdescription,
                                                duration = tasksCompleted.duration
                                            }).ToList();
 
