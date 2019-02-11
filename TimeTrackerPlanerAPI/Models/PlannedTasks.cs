@@ -22,20 +22,19 @@ namespace TimeTrackerPlanerAPI.Models
                 sqlConnection.Open();
                 using (MySqlCommand cmd = sqlConnection.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT TasksPlanned.planid, taskname, projectname, catname
+                    cmd.CommandText = @"SELECT TasksPlanned.planid, taskdescription, projectname, catname
                                 FROM TasksPlanned
-                                INNER JOIN TaskNames ON TasksPlanned.taskid = TaskNames.taskid
-                                INNER JOIN Categories ON Categories.catid = TaskNames.categoryid
+                                INNER JOIN Categories ON Categories.catid = TasksPlanned.catid
                                 INNER JOIN Projects ON Projects.projectid = Categories.projectid
                                 WHERE planneddate >= DATE(CURRENT_DATE - INTERVAL (DAYOFWEEK(CURRENT_DATE) - 1) DAY)
-                                ORDER BY projectname ASC, taskname ASC";
+                                ORDER BY projectname ASC";
                     cmd.CommandType = CommandType.Text;
                     using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
                             plannedTasks.planid = (int) reader["planid"];
-                            plannedTasks.taskname = reader["taskname"].ToString();
+                            plannedTasks.taskname = reader["taskdescription"].ToString();
                             plannedTasks.projectname = reader["projectname"].ToString();
                             plannedTasks.catname = reader["catname"].ToString();
 
