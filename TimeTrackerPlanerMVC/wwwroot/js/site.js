@@ -3,6 +3,30 @@
 
 // Write your JavaScript code.
 
+var idleTime = 0;
+window.setInterval( function(){
+   if($("#starttime").val() == "00:00") {
+
+    idleTime = idleTime + 5;
+    }
+    else {
+        idleTime = 0;
+    }
+
+    if(idleTime >= 60)
+    {
+        if(window.Notification && Notification.permission !== "denied") {
+            Notification.requestPermission(function(status) {  
+                var n = new Notification('TimeTrackerPlaner', { 
+                    body: 'Please start a task!'
+                }); 
+            });
+        }
+        idleTime = 0;
+    }
+    
+},5000)
+
 function GetCategory(_projectid) {
     $.ajax({
         url: "/AddTask/GetCategoriesByProjectId/",
