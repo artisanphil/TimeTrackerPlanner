@@ -32,7 +32,7 @@ namespace TimeTrackerPlanerMVC.Controllers
                             join myCategories in _context.Categories on myPlans.catid equals myCategories.catid
                            join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
                             where myPlans.planneddate >= DateTimeExtensions.FirstDayOfWeek(DateTime.Now) 
-                           orderby myPlans.planneddate descending, myProjects.projectname ascending
+                           orderby myPlans.day descending, myProjects.projectname ascending
                            select new plannedTasksDetail { 
                                 planid = myPlans.planid,
                                 weekPlanned = myPlans.planneddate,
@@ -40,6 +40,7 @@ namespace TimeTrackerPlanerMVC.Controllers
                                 catname = myCategories.catname,
                                 projectname = myProjects.projectname,
                                 estimation = myPlans.estimation,
+                                day = myPlans.day,
                                 timeSpent = (from p in _context.TasksDoing
                                              where p.planid == myPlans.planid &&
                                              p.starttime >=  DateTimeExtensions.FirstDayOfWeek(myPlans.planneddate) &&
@@ -98,7 +99,7 @@ namespace TimeTrackerPlanerMVC.Controllers
 
 
         [HttpPost]
-        public IActionResult Index(int CategoryList, string TaskDescription, int TimeEstimation, int WeekList)
+        public IActionResult Index(int CategoryList, string TaskDescription, int TimeEstimation, int WeekList, int Day)
         {
             DateTime weekDate = DateTime.Now;
             if(WeekList >= 1)
@@ -108,7 +109,7 @@ namespace TimeTrackerPlanerMVC.Controllers
             DateTime datePlanned = DateTimeExtensions.FirstDayOfWeek(weekDate);
 
 
-            var tasksPlannedEntity = new TasksPlanned() { catid = CategoryList, taskdescription = TaskDescription, estimation = TimeEstimation, planneddate = datePlanned };
+            var tasksPlannedEntity = new TasksPlanned() { catid = CategoryList, taskdescription = TaskDescription, estimation = TimeEstimation, planneddate = datePlanned, day = Day};
             _context.TasksPlanned.Add(tasksPlannedEntity);
             _context.SaveChanges();
 
@@ -146,6 +147,7 @@ namespace TimeTrackerPlanerMVC.Controllers
         {
             var taskEntity = _context.TasksPlanned.Find(planid);
             taskEntity.completed = false;
+            taskEntity.day = 0;
             if(!completed)
             {
                 taskEntity.completed = true;    

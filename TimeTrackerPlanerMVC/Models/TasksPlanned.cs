@@ -11,6 +11,7 @@ namespace TimeTrackerPlanerMVC.Models
         public string taskdescription { get; set;  }
         public int estimation { get; set; }
         public DateTime planneddate { get; set;  }
+        public int day { get; set; }
         public bool completed { get; set;  }
     } 
 }

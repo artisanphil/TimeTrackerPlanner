@@ -2,6 +2,7 @@
 <div>@ViewBag.Message</div>
 <table id="plannedTasks">
     @{
+        int day = 0;
         string week = "";
         int estimateSum = 0;
         int timeSpentSum = 0;
@@ -35,9 +36,21 @@
                 </tr>
             </thead>
         }
+        if (item.day != day)
+        {
+            string DisplayDay = "Any Day";
+            if (item.day == 1)
+            {
+                DisplayDay = "Today";
+            }
+            <tr>
+                <td colspan="3" style="font-weight:bold; text-align:center;">@DisplayDay</td>
+            </tr>
+        }
+        day = @item.day;
         <tr>
             <td>
-                <input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid, @item.completed.ToString().ToLower());" /> 
+                <input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid, @item.completed.ToString().ToLower());" />
                 <a href="TaskDetail?planid=@item.planid"><strong>@item.projectname:</strong> @item.taskdescription (@item.catname)</a>
             </td>
             <td>@item.estimation.ToString() min.</td>
@@ -55,7 +68,7 @@
             actualEstimationSum += item.estimation;
         }
     }
-    @{ 
+    @{
         if (timeSpentSum > 0)
         {
             percentageDone = ((double)timeSpentSum / actualEstimationSum);
@@ -70,14 +83,14 @@
         <td>Actual Estimation:</td>
         <td colspan="2" align="center">@actualEstimationSum.ToString() min. (@String.Format("{0:P1}", percentageDone) done) </td>
     </tr>
-   </table>
+</table>
     <form method="post">
         <div class="addTaskGrid">
             <div class="box a1">Project</div>
             <div class="box a2">Category</div>
             <div class="box a3">Task</div>
             <div class="box a4">Time estimation</div>
-            <div class="box a5">Week</div>
+            <div class="box a5">When</div>
             <div class="box a6"></div>
             <div class="box b1">
                 @Html.DropDownList("ProjectList", null, new { @onchange = "javascript:GetCategory(this.value);" })
@@ -93,6 +106,8 @@
             </div>
             <div class="box b5">
                 @Html.DropDownList("WeekList")
+                <br>
+                <input name="Day" type="checkbox" value="1" /> Today
             </div>
             <div class="box b6"><input type="submit" value="Add" /></div>
             <div class="box c1">

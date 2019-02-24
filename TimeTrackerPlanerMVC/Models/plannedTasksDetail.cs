@@ -10,6 +10,7 @@ namespace TimeTrackerPlanerMVC.Models
         public string projectname { get; set;  }
         public int estimation { get; set; }
         public int timeSpent { get; set;  }
+        public int day { get; set; }
         public bool completed { get; set;  }
     }
 
