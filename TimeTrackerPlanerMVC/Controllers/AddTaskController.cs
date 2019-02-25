@@ -32,7 +32,7 @@ namespace TimeTrackerPlanerMVC.Controllers
                             join myCategories in _context.Categories on myPlans.catid equals myCategories.catid
                            join myProjects in _context.Projects on myCategories.projectid equals myProjects.projectid
                             where myPlans.planneddate >= DateTimeExtensions.FirstDayOfWeek(DateTime.Now) 
-                           orderby myPlans.day descending, myProjects.projectname ascending
+                           orderby myPlans.planneddate descending, myPlans.day descending, myProjects.projectname ascending
                            select new plannedTasksDetail { 
                                 planid = myPlans.planid,
                                 weekPlanned = myPlans.planneddate,
