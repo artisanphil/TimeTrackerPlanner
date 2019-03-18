@@ -12,6 +12,8 @@ using TimeTrackerPlanerMVC.Models;
  
 namespace TimeTrackerPlanerMVC.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class TaskDetail : Controller
     {
         private readonly TimeTrackerPlanerMVC.Models.TasksContext _context;
@@ -21,12 +23,18 @@ namespace TimeTrackerPlanerMVC.Controllers
             _context = context;
         }
 
-        // GET: /<controller>/
-        public IActionResult Index(int planid = 0)
+        [HttpGet("{id}")]
+        public TasksPlanned Get(int id = 0)
         {
-            var TaskDetail = _context.TasksPlanned.Find(planid);
+            var TaskDetail = _context.TasksPlanned.Find(id);
 
-            return View(TaskDetail);
+            TaskDetail.projectid = _context.Categories.Find(TaskDetail.catid).projectid;
+
+            Console.WriteLine("#TaskDetail#");
+            Console.WriteLine(TaskDetail);
+
+            return TaskDetail;
         }
+
     }
 }

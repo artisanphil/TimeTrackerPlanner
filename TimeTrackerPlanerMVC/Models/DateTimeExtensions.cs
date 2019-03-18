@@ -11,5 +11,17 @@ namespace TimeTrackerPlanerMVC.Models
                 diff += 7;
             return dt.AddDays(-diff).Date;
         }
+
+        public static DateTime getDateByWeek(this int WeekList)
+        {
+            DateTime weekDate = DateTime.Now;
+            if (WeekList >= 1)
+            {
+                weekDate = DateTime.Now.AddDays(WeekList * 7);
+            }
+            DateTime datePlanned = DateTimeExtensions.FirstDayOfWeek(weekDate);
+
+            return datePlanned;
+        }
     }
 }

@@ -99,15 +99,9 @@ namespace TimeTrackerPlanerMVC.Controllers
 
 
         [HttpPost]
-        public IActionResult Index(int CategoryList, string TaskDescription, int TimeEstimation, int WeekList, int Day)
+        public IActionResult saveNewTask(int CategoryList, string TaskDescription, int TimeEstimation, int WeekList, int Day)
         {
-            DateTime weekDate = DateTime.Now;
-            if(WeekList >= 1)
-            {
-                weekDate = DateTime.Now.AddDays(WeekList * 7);
-            }
-            DateTime datePlanned = DateTimeExtensions.FirstDayOfWeek(weekDate);
-
+            DateTime datePlanned = DateTimeExtensions.getDateByWeek(WeekList);
 
             var tasksPlannedEntity = new TasksPlanned() { catid = CategoryList, taskdescription = TaskDescription, estimation = TimeEstimation, planneddate = datePlanned, day = Day};
             _context.TasksPlanned.Add(tasksPlannedEntity);
@@ -115,6 +109,28 @@ namespace TimeTrackerPlanerMVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public IActionResult updateTask(int planid, int ProjectList, int CategoryList, string TaskDescription, int TimeEstimation, int WeekList, int Day)
+        {
+            var taskEntity = _context.TasksPlanned.Find(planid);
+            DateTime datePlanned = DateTimeExtensions.getDateByWeek(WeekList);
+
+            Console.WriteLine("planid: " + planid);
+            Console.WriteLine("projectid: " + ProjectList);
+
+            taskEntity.projectid = ProjectList;
+            taskEntity.catid = CategoryList;
+            taskEntity.taskdescription = TaskDescription;
+            taskEntity.estimation = TimeEstimation;
+            taskEntity.planneddate = datePlanned;
+            taskEntity.day = Day;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
 
         public string AddProject(string item)
         {

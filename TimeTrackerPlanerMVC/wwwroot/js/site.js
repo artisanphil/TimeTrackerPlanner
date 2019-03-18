@@ -28,7 +28,7 @@ window.setInterval( function(){
 },5000)
 
 function GetCategory(_projectid) {
-    $.ajax({
+    const result = $.ajax({
         url: "/AddTask/GetCategoriesByProjectId/",
         data: { projectid: _projectid },
         cache: false,
@@ -39,11 +39,14 @@ function GetCategory(_projectid) {
                 markup += "<option value=" + data[x]['value'] + ">" + data[x]['text'] + "</option>";
             }
             $("#CategoryList").html(markup).show();
+            console.log("category filled");
         },
         error: function (reponse) {
             alert("error : " + reponse);
         }
     });
+
+    return result;
 }
 
 

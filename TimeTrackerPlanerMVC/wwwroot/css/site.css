@@ -63,6 +63,10 @@ table, th, td {
     padding: 3px;
 }   
 
+#updateButton {
+    display: none;
+    margin-top: 5px;
+}
 
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {

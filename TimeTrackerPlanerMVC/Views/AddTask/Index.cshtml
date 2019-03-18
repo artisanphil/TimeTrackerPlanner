@@ -1,89 +1,91 @@
-﻿<h1>Add Task</h1>
-<div>@ViewBag.Message</div>
-<table id="plannedTasks">
-    @{
-        int day = 0;
-        string week = "";
-        int estimateSum = 0;
-        int timeSpentSum = 0;
-        int actualEstimationSum = 0;
-        double percentageDone = 0;
-    }
-    @foreach (var item in ViewData["plannedTasks"] as List<plannedTasksDetail>)
-    {
-        if (@item.weekPlanned.ToString("MM/dd/yyyy") != week)
-        {
-            if (week != "")
-            {
-                <tr>
-                    <td></td>
-                    <td>@estimateSum.ToString() min.</td>
-                    <td>@timeSpentSum.ToString() min.</td>
-                </tr>
-                estimateSum = 0;
-                timeSpentSum = 0;
-                actualEstimationSum = 0;
-            }
-            week = @item.weekPlanned.ToString("MM/dd/yyyy");
-            <thead>
-                <tr>
-                    <th colspan="3" style="background-color:#CCCCCC;"><h4>@item.weekPlanned.ToString("d. MMMM yyyy")</h4></th>
-                </tr>
-                <tr>
-                    <th>Task</th>
-                    <th>Estimation</th>
-                    <th>Time Spent</th>
-                </tr>
-            </thead>
+﻿<div id="root">
+    <h1>Add Task</h1>
+    <div>@ViewBag.Message</div>
+    <table>
+        @{
+            int day = 0;
+            string week = "";
+            int estimateSum = 0;
+            int timeSpentSum = 0;
+            int actualEstimationSum = 0;
+            double percentageDone = 0;
         }
-        if (item.day != day)
+        @foreach (var item in ViewData["plannedTasks"] as List<plannedTasksDetail>)
         {
-            string DisplayDay = "Any Day";
-            if (item.day == 1)
+            if (@item.weekPlanned.ToString("MM/dd/yyyy") != week)
             {
-                DisplayDay = "Today";
+                if (week != "")
+                {
+                    <tr>
+                        <td></td>
+                        <td>@estimateSum.ToString() min.</td>
+                        <td>@timeSpentSum.ToString() min.</td>
+                    </tr>
+                    estimateSum = 0;
+                    timeSpentSum = 0;
+                    actualEstimationSum = 0;
+                }
+                week = @item.weekPlanned.ToString("MM/dd/yyyy");
+                <thead>
+                    <tr>
+                        <th colspan="3" style="background-color:#CCCCCC;"><h4>@item.weekPlanned.ToString("d. MMMM yyyy")</h4></th>
+                    </tr>
+                    <tr>
+                        <th>Task</th>
+                        <th>Estimation</th>
+                        <th>Time Spent</th>
+                    </tr>
+                </thead>
             }
+            if (item.day != day)
+            {
+                string DisplayDay = "Any Day";
+                if (item.day == 1)
+                {
+                    DisplayDay = "Today";
+                }
+                <tr>
+                    <td colspan="3" style="font-weight:bold; text-align:center;">@DisplayDay</td>
+                </tr>
+            }
+            day = @item.day;
             <tr>
-                <td colspan="3" style="font-weight:bold; text-align:center;">@DisplayDay</td>
+                <td>
+                    <input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid, @item.completed.ToString().ToLower());" />
+                    <a href="#updateBox" v-on:click="editTask(@item.planid)"><strong>@item.projectname:</strong> @item.taskdescription (@item.catname)</a>
+                </td>
+                <td>@item.estimation.ToString() min.</td>
+                <td>@item.timeSpent.ToString() min.</td>
             </tr>
-        }
-        day = @item.day;
-        <tr>
-            <td>
-                <input type="checkbox" id="@item.planid" checked="@item.completed" onchange="javascript:setCompleted(@item.planid, @item.completed.ToString().ToLower());" />
-                <a href="TaskDetail?planid=@item.planid"><strong>@item.projectname:</strong> @item.taskdescription (@item.catname)</a>
-            </td>
-            <td>@item.estimation.ToString() min.</td>
-            <td>@item.timeSpent.ToString() min.</td>
-        </tr>
 
-        estimateSum += item.estimation;
-        timeSpentSum += item.timeSpent;
-        if (item.completed == true)
-        {
-            actualEstimationSum += item.timeSpent;
+            estimateSum += item.estimation;
+            timeSpentSum += item.timeSpent;
+            if (item.completed == true)
+            {
+                actualEstimationSum += item.timeSpent;
+            }
+            else
+            {
+                actualEstimationSum += item.estimation;
+            }
         }
-        else
-        {
-            actualEstimationSum += item.estimation;
+        @{
+            if (timeSpentSum > 0)
+            {
+                percentageDone = ((double)timeSpentSum / actualEstimationSum);
+            }
         }
-    }
-    @{
-        if (timeSpentSum > 0)
-        {
-            percentageDone = ((double)timeSpentSum / actualEstimationSum);
-        }
-    }
-    <tr>
-        <td>Total:</td>
-        <td>@estimateSum.ToString() min.</td>
-        <td>@timeSpentSum.ToString() min.</td>
-    </tr>
-    <tr>
-        <td>Actual Estimation:</td>
-        <td colspan="2" align="center">@actualEstimationSum.ToString() min. (@String.Format("{0:P1}", percentageDone) done) </td>
-    </tr>
-</table>
+        <tr>
+            <td>Total:</td>
+            <td>@estimateSum.ToString() min.</td>
+            <td>@timeSpentSum.ToString() min.</td>
+        </tr>
+        <tr>
+            <td>Actual Estimation:</td>
+            <td colspan="2" align="center">@actualEstimationSum.ToString() min. (@String.Format("{0:P1}", percentageDone) done) </td>
+        </tr>
+    </table>
+    <a name="updateBox"></a>
     <form method="post">
         <div class="addTaskGrid">
             <div class="box a1">Project</div>
@@ -94,22 +96,29 @@
             <div class="box a6"></div>
             <div class="box b1">
                 @Html.DropDownList("ProjectList", null, new { @onchange = "javascript:GetCategory(this.value);" })
+                <br>
+                <input type="hidden" name="planid" v-model="PlanID" />
+                <span>{{ PlanID }}</span>
             </div>
             <div class="box b2">
                 <select id="CategoryList" name="CategoryList"></select>
             </div>
             <div class="box b3">
-                @Html.TextArea("TaskDescription", new { @rows = 5 })
+                <textarea id="TaskDescription" name="TaskDescription" rows="5" v-model="TaskDescription"></textarea>
             </div>
             <div class="box b4">
-                @Html.TextBox("TimeEstimation", null, new { @type = "number", style = "width: 100px;" })
+                <input type="number" id="TimeEstimation" name="TimeEstimation" v-model="Estimation" style="width:100px;" />
             </div>
             <div class="box b5">
                 @Html.DropDownList("WeekList")
                 <br>
                 <input name="Day" type="checkbox" value="1" /> Today
             </div>
-            <div class="box b6"><input type="submit" value="Add" /></div>
+            <div class="box b6">
+                <input type="submit" value="Add" formaction="/AddTask/saveNewTask" />
+                <br />
+                <input type="submit" id="updateButton" value="Update" formaction="/AddTask/updateTask" />
+            </div>
             <div class="box c1">
                 @Html.TextBox("ProjectName")
                 <nobr><a href="#" onclick="AddItemType('Project'); return false;">Add Project</a></nobr>
@@ -126,3 +135,41 @@
             <div class="box c6"></div>
         </div>
     </form>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+var app = new Vue({
+            el: '#root',
+
+     data: {
+        PlanID: '',
+        TaskDescription: '',
+        Estimation: ''
+     },
+
+     methods: {
+        editTask: function(planid) {
+
+        fetch('http://localhost:3577/api/TaskDetail/' + planid)
+          .then((resp) => resp.json()) // Transform the data into json
+          .then(data => this.setTasks(data))
+         },
+
+        setTasks: async function(data) {
+            console.log(data);
+            $('[name=ProjectList]').val(data.projectid);
+            await GetCategory(data.projectid).then()
+            {
+                console.log("select category");
+                $('[name=CategoryList]').val(data.catid);
+            }
+            this.PlanID = data.planid,
+            this.TaskDescription = data.taskdescription,
+            this.Estimation = data.estimation
+            $('#updateButton').show();
+        }
+       }
+
+    })
+    </script>
