@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToggleStartStop has a valid snapshot 1`] = `
+<button
+  className="StartStopButton"
+  onClick={[Function]}
+>
+  Start
+</button>
+`;

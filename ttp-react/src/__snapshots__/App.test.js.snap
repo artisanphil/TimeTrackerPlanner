@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App has a valid snapshot 1`] = `
+<div
+  className="mainContent"
+>
+  <div>
+    <select
+      onChange={[Function]}
+    />
+    <button
+      className="StartStopButton"
+      onClick={[Function]}
+    >
+      Start
+    </button>
+  </div>
+  <ul />
+  <div>
+    <button
+      onClick={[Function]}
+    >
+      Sync
+    </button>
+    <div>
+      
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SyncTasks has a valid snapshot 1`] = `
+<div>
+  <button
+    onClick={[Function]}
+  >
+    Sync
+  </button>
+  <div>
+    
+  </div>
+</div>
+`;

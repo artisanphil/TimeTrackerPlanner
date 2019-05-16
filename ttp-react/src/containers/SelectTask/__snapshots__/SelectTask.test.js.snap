@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectTask has a valid snapshot 1`] = `
+<div>
+  <select
+    onChange={[Function]}
+  />
+  <button
+    className="StartStopButton"
+    onClick={[Function]}
+  >
+    Start
+  </button>
+</div>
+`;
