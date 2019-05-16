@@ -11,7 +11,7 @@ class SelectTask extends Component {
 
     constructor(props) {
         super(props);
-    
+            
         this.state = {
           plannedTasks: [],
           selectedTask: 0
